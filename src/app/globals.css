@@ -27,11 +27,26 @@
 }
 
 .dark {
-  --color-surface: rgb(10, 14, 19);
-  --color-surface-card: rgba(10, 14, 19, 0.984);
+  --color-surface: oklch(0.06 0 0);
+  --color-surface-card: oklch(0.065 0.002 271);
   --color-surface-subtle: oklch(14.077% 0.0044 285.776);
   --color-content: oklch(0.97 0.01 285);
   --color-content-muted: oklch(0.55 0.02 285);
   --color-content-subtle: oklch(0.38 0.02 285);
   --color-line: oklch(0.25 0.03 285 / 0.3);
+}
+
+@layer components {
+  .kpi-label {
+    @apply text-xs uppercase tracking-widest text-content-subtle;
+  }
+  .kpi-value {
+    @apply text-2xl font-semibold text-content;
+  }
+  .chart-title {
+    @apply text-sm font-medium text-content;
+  }
+  .nav-link {
+    @apply text-sm text-content-muted hover:text-content transition-colors font-semibold;
+  }
 }
