@@ -28,7 +28,7 @@
 
 .dark {
   --color-surface: oklch(0.06 0 0);
-  --color-surface-card: oklch(0.065 0.002 271);
+  --color-surface-card: oklch(18.22% 0.00002 271.152);
   --color-surface-subtle: oklch(14.077% 0.0044 285.776);
   --color-content: oklch(0.97 0.01 285);
   --color-content-muted: oklch(0.55 0.02 285);
@@ -41,7 +41,7 @@
     @apply text-xs uppercase tracking-widest text-content-subtle;
   }
   .kpi-value {
-    @apply text-2xl font-semibold text-content;
+    @apply text-sm font-semibold text-content;
   }
   .chart-title {
     @apply text-sm font-medium text-content;
@@ -49,4 +49,15 @@
   .nav-link {
     @apply text-sm text-content-muted hover:text-content transition-colors font-semibold;
   }
+}
+
+.leaflet-control-attribution {
+  background: transparent !important;
+  color: var(--color-content-subtle) !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--color-surface-card) !important;
+  color: var(--color-content) !important;
+  border-color: var(--color-line) !important;
 }

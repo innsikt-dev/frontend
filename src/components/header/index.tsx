@@ -5,7 +5,7 @@ import Section from '../wrappers/section'
 export default function Header() {
   return (
     <Section>
-      <header className="flex flex-col md:flex-row justify-between items-end ">
+      <header className="flex flex-col md:flex-row justify-between items-center h-[8vh] border-b border-line">
         <Link href={'/'} className="text-xl font-bold text-content">
           Innsikt
         </Link>
