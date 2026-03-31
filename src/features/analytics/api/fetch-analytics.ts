@@ -5,7 +5,7 @@ import { Analytics } from './types'
 export async function fetchAnalytics(
   period: string
 ): Promise<Result<Analytics>> {
-  const res = await fetch(`${API_URL}/analytics/period=${period}`, {
+  const res = await fetch(`${API_URL}/analytics?period=${period}`, {
     cache: 'no-cache',
   })
   if (!res.ok) return { success: false, data: null }

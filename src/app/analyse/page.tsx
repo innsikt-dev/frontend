@@ -1,5 +1,6 @@
 import Chart from '@/components/chart'
 import ChartWrapper from '@/components/chart/chart-wrapper'
+import TimeRangePicker from '@/components/time-range-picker'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/analytics/api/fetch-analytics'
@@ -7,12 +8,21 @@ import HeatmapChart from '@/features/chart/heatmap'
 import { buildCategoryDistribution } from '@/features/chart/options/build-category-distribution'
 import { buildTopMunicipalities } from '@/features/chart/options/build-top-municipalities'
 import { buildTrends } from '@/features/chart/options/build-trends'
-
-export default async function Page() {
-  const data = await fetchAnalytics('')
+type Params = {
+  searchParams: {
+    period: string
+  }
+}
+export default async function Page({ searchParams }: Params) {
+  const { period } = await searchParams
+  console.log(period)
+  const data = await fetchAnalytics(period ?? '1d')
   if (!data.success) return null
   return (
     <Section>
+      <Container>
+        <TimeRangePicker />
+      </Container>
       <ChartWrapper title="Aktivitet etter dag og time">
         <HeatmapChart data={data.data.heatMap} />
       </ChartWrapper>

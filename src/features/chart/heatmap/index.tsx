@@ -60,6 +60,11 @@ export default function HeatmapChart({ data }: { data: HeatMap[] }) {
   } satisfies EChartsCoreOption
 
   return (
-    <ReactECharts option={option} style={{ height: '350px', width: '100%' }} />
+    <ReactECharts
+      option={option}
+      style={{ height: '350px', width: '100%' }}
+      notMerge={false}
+      lazyUpdate={true}
+    />
   )
 }
