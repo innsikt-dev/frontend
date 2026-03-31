@@ -21,7 +21,7 @@ export default function Categories({ data }: Props) {
               className="w-2 h-2 rounded-full"
               style={{ background: categoryColor }}
             />
-            <p> {d.category}</p>
+            <span> {d.category}</span>
 
             <span className="text-content">{d.amount}</span>
           </li>

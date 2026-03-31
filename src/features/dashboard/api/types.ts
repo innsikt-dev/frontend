@@ -26,3 +26,17 @@ export type DashboardData = {
   kpi: DashboardKpi
   events: DashboardEvent[]
 }
+
+export type Thread = {
+  thread_id: string
+  id: number
+  municipality_name: string
+  lat: number
+  lng: number
+  area: string
+  text: string
+  type: string
+  created_on: string
+  updated_on: string
+  is_active: boolean
+}

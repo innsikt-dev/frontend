@@ -8,9 +8,17 @@ export function useThreadParams() {
   const thread = params.get('thread')
 
   function setThread(thread: string) {
-    const param = new URLSearchParams(params.toString())
-    param.set('thread', thread)
+    if (!thread) return
+    const current = new URLSearchParams(params.toString())
+    current.set('thread', thread)
+    router.push(`?${current}`)
   }
 
-  return { thread, setThread }
+  function clearThread() {
+    const current = new URLSearchParams(params.toString())
+    current.delete('thread')
+    router.push(`?${current}`)
+  }
+
+  return { thread, clearThread, setThread }
 }

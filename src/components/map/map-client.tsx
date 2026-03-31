@@ -1,6 +1,9 @@
 'use client'
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import { useThreadParams } from '@/hooks/use-thread-params'
+import { useRef } from 'react'
+import type { Popup as LeafletPopup } from 'leaflet'
 
 type Marker = {
   lat: number
@@ -17,85 +20,102 @@ type Props = {
   markers?: Marker[]
 }
 
-export default function MapClient({ markers = [] }: Props) {
+function MarkerWithPopup({
+  m,
+  setThread,
+}: {
+  m: Marker
+  setThread: (id: string) => void
+}) {
+  const popupRef = useRef<LeafletPopup>(null)
+
+  const handleLesSaken = () => {
+    popupRef.current?.close()
+    setThread(m.threadId ?? '')
+  }
+
   return (
-    <MapContainer
-      center={[65, 15]}
-      zoom={5}
-      className="w-full h-full"
-      minZoom={4}
+    <CircleMarker
+      center={[m.lat, m.lng]}
+      radius={8}
+      pathOptions={{
+        color: m.color ?? '#dc2626',
+        fillColor: m.color ?? '#dc2626',
+        fillOpacity: 0.8,
+      }}
     >
-      <TileLayer
-        url="https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
-        attribution="© OpenStreetMap © CartoDB"
-      />
-      {markers.map((m, i) => (
-        <CircleMarker
-          key={i}
-          center={[m.lat, m.lng]}
-          radius={8}
-          pathOptions={{
-            color: m.color ?? '#dc2626',
-            fillColor: m.color ?? '#dc2626',
-            fillOpacity: 0.8,
-          }}
-        >
-          <Popup>
-            <div
+      <Popup ref={popupRef} closeButton={false}>
+        <div style={{ minWidth: '200px' }}>
+          <span
+            style={{
+              color: m.color,
+              fontSize: '11px',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
+            {m.type}
+          </span>
+          <p
+            style={{ fontSize: '11px', color: '#6b7280', margin: '4px 0 6px' }}
+          >
+            {m.municipality}
+            {m.area ? `, ${m.area}` : ''}
+          </p>
+          <p
+            style={{
+              fontSize: '12px',
+              margin: '0 0 8px',
+              lineHeight: '1.4',
+              display: '-webkit-box',
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+            }}
+          >
+            {m.label}
+          </p>
+          {m.threadId && (
+            <button
+              onClick={handleLesSaken}
               style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '4px',
-                maxWidth: '220px',
+                fontSize: '11px',
+                color: '#6b7280',
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: 0,
               }}
             >
-              <span
-                style={{
-                  color: m.color,
-                  fontSize: '11px',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                }}
-              >
-                {m.type}
-              </span>
-              <span style={{ fontSize: '11px', color: '#6b7280' }}>
-                {m.municipality}
-                {m.area ? `, ${m.area}` : ''}
-              </span>
-              <p
-                style={{
-                  fontSize: '12px',
-                  margin: 0,
-                  lineHeight: '1.4',
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden',
-                }}
-              >
-                {m.label}
-              </p>
-              {m.threadId && (
-                <a
-                  href={`/?thread=${m.threadId}`}
-                  style={{
-                    fontSize: '11px',
-                    color: m.color,
-                    textDecoration: 'none',
-                    fontWeight: 600,
-                    marginTop: '4px',
-                    display: 'inline-block',
-                  }}
-                >
-                  Se sak →
-                </a>
-              )}
-            </div>
-          </Popup>
-        </CircleMarker>
-      ))}
-    </MapContainer>
+              Les saken →
+            </button>
+          )}
+        </div>
+      </Popup>
+    </CircleMarker>
+  )
+}
+
+export default function MapClient({ markers = [] }: Props) {
+  const { setThread } = useThreadParams()
+
+  return (
+    <div className="relative w-full h-full">
+      <MapContainer
+        center={[65, 15]}
+        zoom={5}
+        className="w-full h-full"
+        minZoom={4}
+      >
+        <TileLayer
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
+          attribution="© OpenStreetMap © CartoDB"
+        />
+        {markers.map((m, i) => (
+          <MarkerWithPopup key={i} m={m} setThread={setThread} />
+        ))}
+      </MapContainer>
+    </div>
   )
 }

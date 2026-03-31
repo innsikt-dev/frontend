@@ -61,3 +61,19 @@
   color: var(--color-content) !important;
   border-color: var(--color-line) !important;
 }
+
+.leaflet-popup-content-wrapper {
+  background: var(--color-surface-card) !important;
+  border: 0.5px solid var(--color-line) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: var(--color-content) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--color-surface-card) !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px !important;
+}
