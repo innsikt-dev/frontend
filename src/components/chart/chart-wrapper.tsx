@@ -8,7 +8,7 @@ type Props = {
 
 export default function ChartWrapper({ children, title }: Props) {
   return (
-    <Container className="py-3">
+    <Container className="py-3  bg-surface-card/35">
       <p className="flex items-center gap-2 text-base  text-content">
         <span>{title}</span>
       </p>

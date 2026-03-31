@@ -2,9 +2,9 @@ import { Trends } from '@/features/analytics/api/types'
 import { categoryColorHex } from '@/lib/category-map'
 import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
-import { EChartsCoreOption } from 'echarts'
+import { EChartsOption } from 'echarts'
 
-export function buildTrends(data: Trends[]): EChartsCoreOption {
+export function buildTrends(data: Trends[]): EChartsOption {
   const counter: Record<string, Record<string, number>> = {}
 
   data.forEach((d) => {
@@ -25,7 +25,11 @@ export function buildTrends(data: Trends[]): EChartsCoreOption {
   }))
 
   return {
-    tooltip: { ...chartTooltip, show: true, trigger: 'axis' },
+    tooltip: {
+      ...chartTooltip,
+      show: true,
+      trigger: 'axis',
+    },
     legend: {
       data: categories,
       bottom: 0,
@@ -33,6 +37,12 @@ export function buildTrends(data: Trends[]): EChartsCoreOption {
       icon: 'circle',
       itemWidth: 8,
       itemHeight: 8,
+      selected: {
+        Sjø: false,
+        Dyr: false,
+        Skadeverk: false,
+        'Andre hendelser': false,
+      },
     },
     grid: { top: 20, left: '3%', right: '4%', bottom: 60, containLabel: true },
     xAxis: {
@@ -44,8 +54,9 @@ export function buildTrends(data: Trends[]): EChartsCoreOption {
     },
     yAxis: {
       type: 'value',
+
       axisLabel: { color: '#6b7280' },
-      splitLine: { lineStyle: { color: '#1e1c2e' } },
+      splitLine: { show: false },
       ...chartAxisBase,
     },
     series: series.map((s) => ({
@@ -53,6 +64,7 @@ export function buildTrends(data: Trends[]): EChartsCoreOption {
       smooth: true,
       symbol: 'none',
       lineStyle: { width: 1.5 },
+      type: 'line' as const,
     })),
   }
 }

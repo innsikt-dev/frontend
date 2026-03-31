@@ -14,7 +14,7 @@ export function buildTopMunicipalities(
     xAxis: {
       type: 'value',
       axisLabel: { color: '#6b7280' },
-      splitLine: { lineStyle: { color: '#1e1c2e' } },
+      splitLine: { show: false },
       ...chartAxisBase,
     },
     yAxis: {
@@ -28,11 +28,16 @@ export function buildTopMunicipalities(
       {
         type: 'bar',
         barMaxWidth: 40,
-        itemStyle: {
-          color: '#7c3aed',
-          borderRadius: [0, 4, 4, 0],
-        },
-        data: data.map((d) => d.amount).reverse(),
+
+        data: data
+          .map((d, i) => ({
+            value: d.amount,
+            itemStyle: {
+              color: `hsl(142, 60%, ${35 + i * 5}%)`,
+              borderRadius: [0, 4, 4, 0],
+            },
+          }))
+          .reverse(),
       },
     ],
   }

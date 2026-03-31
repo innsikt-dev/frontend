@@ -19,18 +19,18 @@ export default async function Page({ searchParams }: Params) {
   const data = await fetchAnalytics(period ?? '1d')
   if (!data.success) return null
   return (
-    <Section>
+    <Section className="">
       <Container>
         <TimeRangePicker />
       </Container>
       <ChartWrapper title="Aktivitet etter dag og time">
         <HeatmapChart data={data.data.heatMap} />
       </ChartWrapper>
-      <ChartWrapper title="Hendelser per kategori">
+      <ChartWrapper title="Hendelser over tid">
         <Chart option={buildTrends(data.data.trends)} />
       </ChartWrapper>
 
-      <Container className="grid grid-cols-2">
+      <Container className="grid grid-cols-2 gap-4">
         <ChartWrapper title="Topp 10 kommuner">
           <Chart option={buildTopMunicipalities(data.data.topMunicipalities)} />
         </ChartWrapper>

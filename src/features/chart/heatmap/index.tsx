@@ -44,7 +44,7 @@ export default function HeatmapChart({ data }: { data: HeatMap[] }) {
       min: 0,
       max: 18,
       show: false,
-      inRange: { color: ['#13111f', '#5b21b6', '#a855f7'] },
+      inRange: { color: ['#eff6ff', '#93c5fd', '#1d4ed8'] },
     },
     series: [
       {
@@ -52,8 +52,8 @@ export default function HeatmapChart({ data }: { data: HeatMap[] }) {
         data: series,
         itemStyle: {
           borderRadius: 4,
-          borderWidth: 2,
-          borderColor: '#0f0d1a',
+          borderWidth: 3,
+          borderColor: '#ffffff',
         },
       },
     ],

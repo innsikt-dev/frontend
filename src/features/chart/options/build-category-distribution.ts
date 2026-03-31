@@ -23,7 +23,7 @@ export function buildCategoryDistribution(
       type: 'value',
 
       axisLabel: { color: '#6b7280' },
-      splitLine: { lineStyle: { color: '#1e1c2e' } },
+      splitLine: { show: false },
       ...chartAxisBase,
     },
     series: [

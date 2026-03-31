@@ -102,7 +102,7 @@ export default function MapClient({ markers = [] }: Props) {
         minZoom={4}
       >
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/dark_all/{z}/{x}/{y}{r}.png"
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png"
           attribution="© OpenStreetMap © CartoDB"
         />
         {markers.map((m, i) => (

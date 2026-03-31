@@ -1,6 +1,5 @@
 import MapClient from '@/components/map'
 import Container from '@/components/wrappers/container'
-import Section from '@/components/wrappers/section'
 import { fetchDashboardData } from '@/features/dashboard/api/fetch-dashboard-data'
 import { fetchThread } from '@/features/dashboard/api/fetch-thread'
 /* import Categories from '@/features/dashboard/components/categories' */
@@ -24,7 +23,7 @@ export default async function Page({ searchParams }: Params) {
     : dashboardData.data.events
 
   return (
-    <Section className="h-[90vh]">
+    <Container className="h-[92vh] bg-surface">
       <Container className="flex h-full w-full grow relative">
         <Container className="absolute z-[1000] top-3 left-40 bg-surface/50 py-2 px-4 rounded-lg">
           <Kpi data={dashboardData.data.kpi} />
@@ -54,6 +53,6 @@ export default async function Page({ searchParams }: Params) {
           </Container>
         )}
       </Container>
-    </Section>
+    </Container>
   )
 }
