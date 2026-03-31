@@ -1,17 +1,17 @@
 'use client'
 import Container from '@/components/wrappers/container'
-import { useThreadParams } from '@/hooks/use-thread-params'
 import { Thread } from '../../api/types'
 import { categoryColorHex } from '@/lib/category-map'
 import { timeAgo } from '@/lib/time-ago'
 import { MapPin, Clock, X } from 'lucide-react'
+import { useMapParams } from '@/hooks/use-map-params'
 
 type Props = {
   data: Thread[] | null
 }
 
 export default function Threads({ data }: Props) {
-  const { clearThread } = useThreadParams()
+  const { category, update } = useMapParams()
   const firstThread = data && data.length > 0
 
   const sliced = data?.slice(1)
@@ -22,7 +22,7 @@ export default function Threads({ data }: Props) {
           Hendelseslogg
         </span>
         <button
-          onClick={clearThread}
+          onClick={() => update({ category: category ?? null, thread: null })}
           className="text-content-subtle hover:text-content duration-150 cursor-pointer"
         >
           <X size={14} />

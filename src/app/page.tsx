@@ -3,22 +3,25 @@ import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchDashboardData } from '@/features/dashboard/api/fetch-dashboard-data'
 import { fetchThread } from '@/features/dashboard/api/fetch-thread'
-import Categories from '@/features/dashboard/components/categories'
+/* import Categories from '@/features/dashboard/components/categories' */
 import Kpi from '@/features/dashboard/components/kpi'
 import Threads from '@/features/dashboard/components/threads'
 import { categoryColorHex } from '@/lib/category-map'
 type Params = {
   searchParams: {
     thread: string
+    category: string
   }
 }
 export default async function Page({ searchParams }: Params) {
-  const { thread } = await searchParams
-  console.log(thread)
+  const { thread, category } = await searchParams
   const dashboardData = await fetchDashboardData()
   if (!dashboardData.success) return null
   const threads = await fetchThread(thread)
   const threadData = threads.success ? threads.data : null
+  const filteredEvents = category
+    ? dashboardData.data.events.filter((e) => e.type === category)
+    : dashboardData.data.events
 
   return (
     <Section className="h-[90vh]">
@@ -26,12 +29,12 @@ export default async function Page({ searchParams }: Params) {
         <Container className="absolute z-[1000] top-3 left-40 bg-surface/50 py-2 px-4 rounded-lg">
           <Kpi data={dashboardData.data.kpi} />
         </Container>
-        <Container className="absolute z-[1000] bottom-3 left-40">
+        {/*     <Container className="absolute z-[1000] bottom-3 left-40">
           <Categories data={dashboardData.data.totalCategories} />
-        </Container>
+        </Container> */}
 
         <MapClient
-          markers={dashboardData.data.events.map((e) => ({
+          markers={filteredEvents.map((e) => ({
             lat: e.lat ?? 0,
             lng: e.lng ?? 0,
             label: e.text,

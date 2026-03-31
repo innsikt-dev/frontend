@@ -1,9 +1,9 @@
 'use client'
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
-import { useThreadParams } from '@/hooks/use-thread-params'
 import { useRef } from 'react'
 import type { Popup as LeafletPopup } from 'leaflet'
+import { useMapParams } from '@/hooks/use-map-params'
 
 type Marker = {
   lat: number
@@ -20,18 +20,13 @@ type Props = {
   markers?: Marker[]
 }
 
-function MarkerWithPopup({
-  m,
-  setThread,
-}: {
-  m: Marker
-  setThread: (id: string) => void
-}) {
+function MarkerWithPopup({ m }: { m: Marker }) {
+  const { update, category } = useMapParams()
   const popupRef = useRef<LeafletPopup>(null)
 
   const handleReadThread = () => {
     popupRef.current?.close()
-    setThread(m.threadId ?? '')
+    update({ category: category ?? null, thread: m.threadId })
   }
 
   return (
@@ -98,8 +93,6 @@ function MarkerWithPopup({
 }
 
 export default function MapClient({ markers = [] }: Props) {
-  const { setThread } = useThreadParams()
-
   return (
     <div className="relative w-full h-full">
       <MapContainer
@@ -113,7 +106,7 @@ export default function MapClient({ markers = [] }: Props) {
           attribution="© OpenStreetMap © CartoDB"
         />
         {markers.map((m, i) => (
-          <MarkerWithPopup key={i} m={m} setThread={setThread} />
+          <MarkerWithPopup key={i} m={m} />
         ))}
       </MapContainer>
     </div>
