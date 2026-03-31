@@ -1,0 +1,39 @@
+import { TopMunicipalities } from '@/features/analytics/api/types'
+import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
+import { EChartsCoreOption } from 'echarts'
+
+export function buildTopMunicipalities(
+  data: TopMunicipalities[]
+): EChartsCoreOption {
+  return {
+    tooltip: {
+      ...chartTooltip,
+      axisPointer: { type: 'shadow' },
+    },
+    grid: { top: 30, left: '3%', right: '4%', bottom: 30, containLabel: true },
+    xAxis: {
+      type: 'value',
+      axisLabel: { color: '#6b7280' },
+      splitLine: { lineStyle: { color: '#1e1c2e' } },
+      ...chartAxisBase,
+    },
+    yAxis: {
+      type: 'category',
+      data: data.map((d) => d.municipality_name).reverse(),
+      axisLabel: { color: '#6b7280' },
+      ...chartAxisBase,
+    },
+
+    series: [
+      {
+        type: 'bar',
+        barMaxWidth: 40,
+        itemStyle: {
+          color: '#7c3aed',
+          borderRadius: [0, 4, 4, 0],
+        },
+        data: data.map((d) => d.amount).reverse(),
+      },
+    ],
+  }
+}
