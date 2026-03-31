@@ -2,6 +2,7 @@
 
 import { usePageParams } from '@/hooks/use-page-params'
 import { cn } from '@/lib/cn'
+import { useEffect } from 'react'
 
 const ranges = [
   {
@@ -28,6 +29,9 @@ const ranges = [
 
 export default function TimeRangePicker() {
   const { period, update } = usePageParams()
+  useEffect(() => {
+    if (!period) update({ period: '7d' })
+  }, [period, update])
   return (
     <ul className="flex gap-4">
       {ranges.map((r) => (
