@@ -29,7 +29,7 @@ function MarkerWithPopup({
 }) {
   const popupRef = useRef<LeafletPopup>(null)
 
-  const handleLesSaken = () => {
+  const handleReadThread = () => {
     popupRef.current?.close()
     setThread(m.threadId ?? '')
   }
@@ -78,7 +78,7 @@ function MarkerWithPopup({
           </p>
           {m.threadId && (
             <button
-              onClick={handleLesSaken}
+              onClick={handleReadThread}
               style={{
                 fontSize: '11px',
                 color: '#6b7280',
