@@ -22,7 +22,7 @@ export default function MapClient({ markers = [] }: Props) {
     <MapContainer
       center={[65, 15]}
       zoom={5}
-      className="w-full h-full rounded-lg"
+      className="w-full h-full"
       minZoom={4}
     >
       <TileLayer

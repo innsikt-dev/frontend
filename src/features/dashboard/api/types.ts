@@ -17,8 +17,12 @@ export type DashboardKpi = {
   mostCommonCategory: string | null
   activeIncidents: number
 }
-
+export type DashboardCategories = {
+  category: string
+  amount: number
+}
 export type DashboardData = {
+  totalCategories: DashboardCategories[]
   kpi: DashboardKpi
   events: DashboardEvent[]
 }

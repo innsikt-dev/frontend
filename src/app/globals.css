@@ -33,12 +33,12 @@
   --color-content: oklch(0.97 0.01 285);
   --color-content-muted: oklch(0.55 0.02 285);
   --color-content-subtle: oklch(0.38 0.02 285);
-  --color-line: oklch(0.25 0.03 285 / 0.3);
+  --color-line: oklch(25.124% 0.03014 284.018 / 0.565);
 }
 
 @layer components {
   .kpi-label {
-    @apply text-xs uppercase tracking-widest text-content-subtle;
+    @apply text-xs uppercase tracking-widest text-content-muted;
   }
   .kpi-value {
     @apply text-sm font-semibold text-content;
