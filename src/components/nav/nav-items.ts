@@ -8,6 +8,6 @@ export const navItems = [
     path: '/',
   },
   { id: 2, icon: ChartNoAxesColumn, label: 'Analyse', path: '/analyse' },
-  { id: 3, icon: Search, label: 'Kommunesøk', path: '' },
+  { id: 3, icon: Search, label: 'Kommunesøk', path: '/kommunesok' },
   { id: 4, icon: GitCompare, label: 'Sammenlign', path: '' },
 ]

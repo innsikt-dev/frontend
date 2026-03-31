@@ -1,24 +1,24 @@
 import { useRouter, useSearchParams } from 'next/navigation'
 
-type PageParams = {
+type Patch = {
   period?: string | null
-  update: (patch: { period?: string | null }) => void
+  municipality?: string | null
 }
-export function usePageParams(): PageParams {
+
+export function usePageParams() {
   const router = useRouter()
   const params = useSearchParams()
   const period = params.get('period')
-  function update(patch: { period?: string | null }) {
+  const municipality = params.get('municipality')
+
+  function update(patch: Patch) {
     const current = new URLSearchParams(params.toString())
     for (const [key, value] of Object.entries(patch)) {
-      console.log(`${key}:${value}`)
-      if (value === null) {
-        current.delete(key)
-      } else if (value) current.set(key, value)
-
-      router.push(`?${current}`)
+      if (value === null) current.delete(key)
+      else if (value) current.set(key, value)
     }
+    router.push(`?${current}`)
   }
 
-  return { period, update }
+  return { period, municipality, update }
 }
