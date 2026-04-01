@@ -1,25 +1,49 @@
+import Chart from '@/components/chart'
+import ChartWrapper from '@/components/chart/chart-wrapper'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
+import { fetchAnalytics } from '@/features/kommunesok/api/fetch-analytics'
 import { fetchMunicipalityData } from '@/features/kommunesok/api/fetch-municipality'
 import { fetchNames } from '@/features/kommunesok/api/fetch-names'
+import { buildCategoryDistribution } from '@/features/kommunesok/chart/options/build-category-distribution'
+import { buildIncidentsOverTime } from '@/features/kommunesok/chart/options/build-incidents-over-time'
+import MunicipalityEvents from '@/features/kommunesok/components/municipality-events'
 import MunicipalityView from '@/features/kommunesok/components/municipality'
 import Sidebar from '@/features/kommunesok/components/sidebar'
 type Params = {
   searchParams: {
+    period: string
     municipality: string
   }
 }
 export default async function Page({ searchParams }: Params) {
-  const { municipality } = await searchParams
+  const { period, municipality } = await searchParams
   const municipalities = await fetchNames()
-  if (!municipalities.success) return null
-  const analytics = await fetchMunicipalityData(municipality ?? 'Oslo')
-  if (!analytics.success) return null
+  if (!municipalities.success) throw new Error('Kunne ikke laste data')
+  const municipalityData = await fetchMunicipalityData(municipality ?? 'Oslo')
+  if (!municipalityData.success) throw new Error('Kunne ikke laste data')
+  const analytics = await fetchAnalytics(municipality ?? 'Oslo', period ?? '7d')
+  if (!analytics.success) throw new Error('Kunne ikke laste data')
   return (
-    <Section className="flex">
+    <Section className="flex h-[92vh]">
       <Sidebar data={municipalities.data} />
-      <Container className="flex flex-col gap-4 max-w-5xl grow mx-auto">
-        <MunicipalityView data={analytics.data} />
+      <Container className="flex flex-col gap-4 max-w-5xl grow mx-auto overflow-scroll pb-8">
+        <MunicipalityView data={municipalityData.data} />
+        <Container>
+          <ChartWrapper title="wop">
+            <Chart
+              option={buildIncidentsOverTime(analytics.data.incidentsOverTime)}
+            />
+          </ChartWrapper>
+          <ChartWrapper title="wop">
+            <Chart
+              option={buildCategoryDistribution(
+                analytics.data.categoryDistribution
+              )}
+            />
+          </ChartWrapper>
+          <MunicipalityEvents data={analytics.data.events} />
+        </Container>
       </Container>
     </Section>
   )

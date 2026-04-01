@@ -26,3 +26,25 @@ export type MunicipalityData = {
   municipality: Municipality
   kpi: Kpi
 }
+
+export type IncidentsOverTime = {
+  date: string
+  amount: number
+}
+
+export type CategoryDistribution = {
+  category: string
+  amount: number
+}
+
+export type Events = {
+  date: string
+  text: string
+  category: string
+  district_name: string
+}
+export type MunicipalityAnalytics = {
+  incidentsOverTime: IncidentsOverTime[]
+  categoryDistribution: CategoryDistribution[]
+  events: Events[]
+}
