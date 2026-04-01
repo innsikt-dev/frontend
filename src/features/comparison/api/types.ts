@@ -4,29 +4,34 @@ export type ComparisonIncidentsOverTime = {
   amount: number
 }
 
-export type ComparisonKeywordIncidents = {
+export type ComparisonCategoryDistribution = {
   municipality_name: string
   category: string
   amount: number
 }
-export type MunicipalityComparison = {
+
+export type ComparisonAnalytics = {
   incidentsOverTime: ComparisonIncidentsOverTime[]
-  keywordIncidents: ComparisonKeywordIncidents[]
+  categoryDistribution: ComparisonCategoryDistribution[]
 }
 
-export type MunicipalitiesComparisonName = {
+export type ComparisonName = {
   municipality_name: string
 }
 
-export type MunicipalitiesComparisonKPI = {
+export type ComparisonKPI = {
   municipality_name: string
   district_name: string
   total_incidents: number
   avg_per_day: number
   most_common_category: string
 }
+export type ComparisonKPIResult = {
+  municipalityOne: ComparisonKPI
+  municipalityTwo: ComparisonKPI
+}
 
-export type QueryParams = {
+export type ComparisonParams = {
   id1: string
   id2: string
   period: string

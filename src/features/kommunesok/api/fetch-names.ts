@@ -1,8 +1,8 @@
 import { Result } from '@/lib/api/types'
 import { API_URL } from '@/lib/env'
-import { Municipalities } from './types'
+import { ComparisonName } from '@/features/comparison/api/types'
 
-export async function fetchNames(): Promise<Result<Municipalities[]>> {
+export async function fetchNames(): Promise<Result<ComparisonName[]>> {
   const res = await fetch(`${API_URL}/municipality/municipalities`, {
     cache: 'no-cache',
   })

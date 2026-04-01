@@ -2,11 +2,15 @@ import { SelectMenu } from '@/features/comparison/components/select-menu'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/comparison/api/fetch-analytics'
-import { fetchMunicipalities } from '@/features/comparison/api/fetch-municipalities'
+import { fetchComparisonKPI } from '@/features/comparison/api/fetch-comparison-kpi'
 import { fetchNames } from '@/features/kommunesok/api/fetch-names'
 import TimeRangePicker from '@/components/time-range-picker'
-import MunicipalityView from '@/features/kommunesok/components/municipality'
-import MunicipalitiesView from '@/features/comparison/components/municipalities-view'
+import Kpi from '@/features/comparison/components/kpi'
+import ChartWrapper from '@/components/chart/chart-wrapper'
+import Chart from '@/components/chart'
+import { buildComparisonIncidentsOverTime } from '@/features/comparison/chart/options/build-incidents-over-time'
+import { buildComparisonCategoryDistribution } from '@/features/comparison/chart/options/build-category-distribution'
+import { appConfig } from '@/lib/app-config/config'
 
 type Params = {
   searchParams: {
@@ -21,18 +25,19 @@ export default async function Page({ searchParams }: Params) {
   const analytics = await fetchAnalytics({
     id1: municipality1,
     id2: municipality2,
-    period: period ?? '7d',
+    period: period ?? appConfig.defaults.period,
   })
 
-  const municipalities = await fetchMunicipalities({
+  const comparisonKpi = await fetchComparisonKPI({
     id1: municipality1,
     id2: municipality2,
-    period: period ?? '7d',
+    period: period ?? appConfig.defaults.period,
   })
   const availableMunicipalities = await fetchNames()
   if (!availableMunicipalities.success)
     throw new Error('Kunne ikke laste siden')
-  if (!municipalities.success) throw new Error('Kunne ikke laste siden')
+  if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')
+
   return (
     <Section>
       <TimeRangePicker />
@@ -48,9 +53,33 @@ export default async function Page({ searchParams }: Params) {
         />
       </Container>
 
-      <Container>
-        <MunicipalitiesView />
+      <Container className="flex gap-8">
+        <Kpi data={comparisonKpi.data.municipalityOne} />
+        <Kpi data={comparisonKpi.data.municipalityTwo} />
       </Container>
+
+      {analytics.success && (
+        <>
+          <ChartWrapper title="">
+            <Chart
+              option={buildComparisonIncidentsOverTime(
+                analytics.data.incidentsOverTime,
+                municipality1,
+                municipality2
+              )}
+            />
+          </ChartWrapper>
+          <ChartWrapper title="">
+            <Chart
+              option={buildComparisonCategoryDistribution(
+                analytics.data.keywordIncidents,
+                municipality1,
+                municipality2
+              )}
+            />
+          </ChartWrapper>
+        </>
+      )}
     </Section>
   )
 }

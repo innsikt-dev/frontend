@@ -10,10 +10,10 @@ import {
 } from '@/components/ui/select'
 
 import { usePageParams } from '@/hooks/use-page-params'
-import { MunicipalitiesComparisonName } from '../../api/types'
 import { useEffect } from 'react'
+import { ComparisonName } from '../../api/types'
 type Props = {
-  data: MunicipalitiesComparisonName[]
+  data: ComparisonName[]
   paramKey: 'municipality1' | 'municipality2'
 }
 export function SelectMenu({ data, paramKey }: Props) {

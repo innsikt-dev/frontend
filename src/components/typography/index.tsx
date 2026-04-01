@@ -7,12 +7,19 @@ export function Subtitle({ children }: { children: React.ReactNode }) {
 }
 export function Label({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-medium text-content-muted uppercase tracking-wide">
+    <span className="text-xs font-medium text-content-muted uppercase tracking-wide">
       {children}
-    </p>
+    </span>
   )
 }
 
+export function Value({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="text-sm font-semibold text-content uppercase">
+      {children}
+    </span>
+  )
+}
 export function Meta({ children }: { children: React.ReactNode }) {
   return <p className="text-xs text-content-muted">{children}</p>
 }
