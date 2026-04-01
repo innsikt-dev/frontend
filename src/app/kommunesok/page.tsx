@@ -27,10 +27,10 @@ export default async function Page({ searchParams }: Params) {
   return (
     <Section className="flex h-[92vh]">
       <Sidebar data={municipalities.data} />
-      <Container className="flex flex-col gap-4 max-w-5xl grow mx-auto overflow-scroll pb-8">
+      <Container className="flex flex-col gap-4 px-30 grow mx-auto overflow-scroll pb-8">
         <MunicipalityView data={municipalityData.data} />
         <Container>
-          <ChartWrapper title="wop">
+          <ChartWrapper title="Hendelser over tid">
             <Chart
               option={buildIncidentsOverTime(analytics.data.incidentsOverTime)}
             />

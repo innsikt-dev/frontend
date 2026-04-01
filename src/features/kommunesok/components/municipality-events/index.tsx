@@ -5,13 +5,14 @@ import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
 import { categoryMap } from '@/lib/category-map'
 import { cn } from '@/lib/cn'
 import { timeAgo } from '@/lib/time-ago'
+import { Subtitle } from '@/components/typography'
 type Props = {
   data: Events[]
 }
 export default function MunicipalityEvents({ data }: Props) {
   return (
     <Container className="flex flex-col gap-4">
-      <h3 className="text-bold">Siste hendelser</h3>
+      <Subtitle>Siste hendelser</Subtitle>
       <ul className="flex flex-col gap-4">
         {data.map((d, i) => {
           const categoryColor = categoryMap[d.category]
