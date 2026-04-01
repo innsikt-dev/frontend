@@ -3,6 +3,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 type Patch = {
   period?: string | null
   municipality?: string | null
+  municipality1?: string | null
+  municipality2?: string | null
 }
 
 export function usePageParams() {
@@ -10,6 +12,8 @@ export function usePageParams() {
   const params = useSearchParams()
   const period = params.get('period')
   const municipality = params.get('municipality')
+  const municipality1 = params.get('municipality1')
+  const municipality2 = params.get('municipality2')
 
   function update(patch: Patch) {
     const current = new URLSearchParams(params.toString())
@@ -20,5 +24,5 @@ export function usePageParams() {
     router.push(`?${current}`)
   }
 
-  return { period, municipality, update }
+  return { period, municipality, municipality1, municipality2, update }
 }
