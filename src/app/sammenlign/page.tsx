@@ -11,6 +11,7 @@ import Chart from '@/components/chart'
 import { buildComparisonIncidentsOverTime } from '@/features/comparison/chart/options/build-incidents-over-time'
 import { buildComparisonCategoryDistribution } from '@/features/comparison/chart/options/build-category-distribution'
 import { appConfig } from '@/lib/app-config/config'
+import PageHeader from '@/components/page-header'
 
 type Params = {
   searchParams: {
@@ -39,18 +40,28 @@ export default async function Page({ searchParams }: Params) {
   if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')
 
   return (
-    <Section>
-      <TimeRangePicker />
-      <Container className="flex items-center gap-2">
-        <SelectMenu
-          data={availableMunicipalities.data}
-          paramKey="municipality1"
-        />
-        <p className="text-xs font-semibold text-content-muted">vs</p>
-        <SelectMenu
-          data={availableMunicipalities.data}
-          paramKey="municipality2"
-        />
+    <Section className="flex flex-col max-w-7xl w-full mx-auto  gap-20 py-5">
+      <Container className="flex flex-col gap-4  items-center gap-2 w-full">
+        <Container className="mb-4 self-start">
+          <PageHeader
+            title="Sammenlign kommuner"
+            subtitle="Sammenlign hendelsesdata mellom to kommuner"
+          />
+        </Container>
+        <Container className="flex  gap-4 items-center w-full">
+          <SelectMenu
+            data={availableMunicipalities.data}
+            paramKey="municipality1"
+          />
+          <p className="text-xs font-semibold text-content-muted">vs</p>
+          <SelectMenu
+            data={availableMunicipalities.data}
+            paramKey="municipality2"
+          />
+          <Container className="ml-auto">
+            <TimeRangePicker />
+          </Container>
+        </Container>
       </Container>
 
       <Container className="flex gap-8">

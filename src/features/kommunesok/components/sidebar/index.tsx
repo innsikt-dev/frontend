@@ -25,17 +25,14 @@ export default function Sidebar({ data }: Props) {
 
   return (
     <nav className="max-w-60 w-full border-r border-line/50 height overflow-scroll">
-      <p className="py-4 text-xs font-bold text-content-muted/80 uppercase border-b border-line/50">
-        kommuner
-      </p>
-      <div className="flex items-center gap-2 border-b border-line/50 px-4 py-2">
+      <Container className="flex items-center gap-2 border-b border-line/50 px-4 py-2">
         <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Søk kommune..."
           className="w-full text-sm outline-none bg-transparent"
         />
-      </div>
+      </Container>
       {isSearching ? (
         <ul className="flex flex-col gap-2 my-4">
           {filtered.map((m) => (

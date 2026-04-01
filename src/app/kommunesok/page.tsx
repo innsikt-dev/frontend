@@ -10,6 +10,7 @@ import { buildIncidentsOverTime } from '@/features/kommunesok/chart/options/buil
 import MunicipalityEvents from '@/features/kommunesok/components/municipality-events'
 import MunicipalityView from '@/features/kommunesok/components/municipality'
 import Sidebar from '@/features/kommunesok/components/sidebar'
+import PageHeader from '@/components/page-header'
 type Params = {
   searchParams: {
     period: string
@@ -25,9 +26,15 @@ export default async function Page({ searchParams }: Params) {
   const analytics = await fetchAnalytics(municipality ?? 'Oslo', period ?? '7d')
   if (!analytics.success) throw new Error('Kunne ikke laste data')
   return (
-    <Section className="flex h-[92vh]">
+    <Section className="flex  gap-20 py-5 h-[92vh]">
       <Sidebar data={municipalities.data} />
-      <Container className="flex flex-col gap-4 px-30 grow mx-auto overflow-scroll pb-8">
+      <Container className="flex flex-col gap-4  px-12 grow mx-auto  overflow-scroll">
+        <Container className="mb-4">
+          <PageHeader
+            title={municipalityData.data.municipality.municipality_name}
+            subtitle={municipalityData.data.municipality.district_name}
+          />
+        </Container>
         <MunicipalityView data={municipalityData.data} />
         <Container>
           <ChartWrapper title="Hendelser over tid">
