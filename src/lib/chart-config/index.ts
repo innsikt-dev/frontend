@@ -35,3 +35,8 @@ export const chartColors = {
   category: categoryColorHex,
   single: '#7c3aed',
 }
+
+export const chartBar = {
+  borderRadius: [4, 4, 0, 0],
+  barWidth: 25,
+}

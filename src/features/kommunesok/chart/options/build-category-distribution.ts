@@ -1,5 +1,5 @@
 import { CategoryDistribution } from '@/features/analytics/api/types'
-import { categoryColorHex } from '@/lib/category-map'
+import { chartAxisBase, chartBar, chartColors } from '@/lib/chart-config'
 
 export function buildCategoryDistribution(data: CategoryDistribution[]) {
   return {
@@ -8,27 +8,28 @@ export function buildCategoryDistribution(data: CategoryDistribution[]) {
     xAxis: {
       type: 'category',
       data: data.map((d) => d.category),
-      axisLine: { show: false },
-      axisTick: { show: false },
+
       axisLabel: { color: '#6b7280' },
+      ...chartAxisBase,
     },
     yAxis: {
       type: 'value',
-      axisLine: { show: false },
-      axisTick: { show: false },
+
       axisLabel: { color: '#6b7280' },
-      splitLine: { lineStyle: { color: '#1e1c2e' } },
+
+      ...chartAxisBase,
     },
     series: [
       {
         name: 'Hendelser',
         type: 'bar',
         barMaxWidth: 40,
+        barWidth: chartBar.barWidth,
         data: data.map((d) => ({
           value: d.amount,
           itemStyle: {
-            color: categoryColorHex[d.category],
-            borderRadius: [4, 4, 0, 0],
+            color: chartColors.category[d.category],
+            borderRadius: chartBar.borderRadius,
           },
         })),
       },

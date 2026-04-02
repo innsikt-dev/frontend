@@ -1,5 +1,5 @@
 import { TopMunicipalities } from '@/features/analytics/api/types'
-import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
+import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 
 export function buildTopMunicipalities(
@@ -14,7 +14,6 @@ export function buildTopMunicipalities(
     xAxis: {
       type: 'value',
       axisLabel: { color: '#6b7280' },
-      splitLine: { show: false },
       ...chartAxisBase,
     },
     yAxis: {
@@ -28,13 +27,14 @@ export function buildTopMunicipalities(
       {
         type: 'bar',
         barMaxWidth: 40,
+        barWidth: chartBar.barWidth,
 
         data: data
           .map((d, i) => ({
             value: d.amount,
             itemStyle: {
               color: `hsl(142, 60%, ${35 + i * 5}%)`,
-              borderRadius: [0, 4, 4, 0],
+              borderRadius: chartBar.borderRadius,
             },
           }))
           .reverse(),

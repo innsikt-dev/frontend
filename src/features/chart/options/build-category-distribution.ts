@@ -1,6 +1,6 @@
 import { CategoryDistribution } from '@/features/analytics/api/types'
 import { categoryColorHex } from '@/lib/category-map'
-import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
+import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 
 export function buildCategoryDistribution(
@@ -23,18 +23,19 @@ export function buildCategoryDistribution(
       type: 'value',
 
       axisLabel: { color: '#6b7280' },
-      splitLine: { show: false },
+
       ...chartAxisBase,
     },
     series: [
       {
         type: 'bar',
         barMaxWidth: 48,
+        barWidth: chartBar.barWidth,
         data: data.map((d) => ({
           value: d.amount,
           itemStyle: {
             color: categoryColorHex[d.category],
-            borderRadius: [4, 4, 0, 0],
+            borderRadius: chartBar.borderRadius,
           },
         })),
       },

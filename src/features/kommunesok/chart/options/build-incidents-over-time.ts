@@ -1,5 +1,6 @@
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
 import { IncidentsOverTime } from '../../api/types'
+import { chartAxisBase, chartColors } from '@/lib/chart-config'
 
 export function buildIncidentsOverTime(data: IncidentsOverTime[]) {
   return {
@@ -8,16 +9,16 @@ export function buildIncidentsOverTime(data: IncidentsOverTime[]) {
     xAxis: {
       type: 'category',
       data: data.map((d) => norwegianDateFormatter(d.date)),
-      axisLine: { show: false },
-      axisTick: { show: false },
+
       axisLabel: { color: '#6b7280' },
+      ...chartAxisBase,
     },
     yAxis: {
       type: 'value',
-      axisLine: { show: false },
-      axisTick: { show: false },
+
       axisLabel: { color: '#6b7280' },
-      splitLine: { lineStyle: { color: '#1e1c2e' } },
+
+      ...chartAxisBase,
     },
     series: [
       {
@@ -26,7 +27,7 @@ export function buildIncidentsOverTime(data: IncidentsOverTime[]) {
         smooth: true,
         symbol: 'none',
         lineStyle: { width: 1.5, color: '#7c3aed' },
-        itemStyle: { color: '#7c3aed' },
+        itemStyle: { color: chartColors.single },
         data: data.map((d) => d.amount),
       },
     ],

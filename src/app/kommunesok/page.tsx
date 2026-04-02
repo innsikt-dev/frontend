@@ -42,7 +42,7 @@ export default async function Page({ searchParams }: Params) {
               option={buildIncidentsOverTime(analytics.data.incidentsOverTime)}
             />
           </ChartWrapper>
-          <ChartWrapper title="wop">
+          <ChartWrapper title="Kategorifordeling">
             <Chart
               option={buildCategoryDistribution(
                 analytics.data.categoryDistribution

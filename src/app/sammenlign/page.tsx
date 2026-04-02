@@ -64,7 +64,7 @@ export default async function Page({ searchParams }: Params) {
         </Container>
       </Container>
 
-      <Container className="flex gap-8">
+      <Container className="flex gap-12">
         <Kpi data={comparisonKpi.data.municipalityOne} />
         <Kpi data={comparisonKpi.data.municipalityTwo} />
       </Container>

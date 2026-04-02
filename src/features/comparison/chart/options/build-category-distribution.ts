@@ -2,6 +2,7 @@ import { EChartsCoreOption } from 'echarts'
 import { ComparisonAnalytics } from '../../api/types'
 import {
   chartAxisBase,
+  chartBar,
   chartColors,
   chartGrid,
   chartTooltip,
@@ -52,9 +53,10 @@ export function buildComparisonCategoryDistribution(
         name: municipalityOne,
         type: 'bar',
         barMaxWidth: 40,
+        barWidth: chartBar.barWidth,
         itemStyle: {
           color: chartColors.comparison[0],
-          borderRadius: [4, 4, 0, 0],
+          borderRadius: chartBar.borderRadius,
         },
         data: categories.map((cat) => counter[cat][municipalityOne] ?? 0),
       },
@@ -62,9 +64,10 @@ export function buildComparisonCategoryDistribution(
         name: municipalityTwo,
         type: 'bar',
         barMaxWidth: 40,
+        barWidth: chartBar.barWidth,
         itemStyle: {
           color: chartColors.comparison[1],
-          borderRadius: [4, 4, 0, 0],
+          borderRadius: chartBar.borderRadius,
         },
         data: categories.map((cat) => counter[cat][municipalityTwo] ?? 0),
       },
