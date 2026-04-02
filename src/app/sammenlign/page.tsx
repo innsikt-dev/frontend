@@ -22,23 +22,23 @@ type Params = {
 }
 export default async function Page({ searchParams }: Params) {
   const { municipality1, municipality2, period } = await searchParams
-
+  const m1 = municipality1 ?? appConfig.defaults.municipality1
+  const m2 = municipality2 ?? appConfig.defaults.municipality2
   const analytics = await fetchAnalytics({
-    id1: municipality1,
-    id2: municipality2,
+    id1: m1,
+    id2: m2,
     period: period ?? appConfig.defaults.period,
   })
 
   const comparisonKpi = await fetchComparisonKPI({
-    id1: municipality1,
-    id2: municipality2,
+    id1: m1,
+    id2: m2,
     period: period ?? appConfig.defaults.period,
   })
   const availableMunicipalities = await fetchNames()
   if (!availableMunicipalities.success)
     throw new Error('Kunne ikke laste siden')
   if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')
-
   return (
     <Section className="flex flex-col">
       <Container className="flex flex-col gap-4  items-center gap-2 w-full">
@@ -75,8 +75,8 @@ export default async function Page({ searchParams }: Params) {
             <Chart
               option={buildComparisonIncidentsOverTime(
                 analytics.data.incidentsOverTime,
-                municipality1,
-                municipality2
+                m1,
+                m2
               )}
             />
           </ChartWrapper>
@@ -84,8 +84,8 @@ export default async function Page({ searchParams }: Params) {
             <Chart
               option={buildComparisonCategoryDistribution(
                 analytics.data.keywordIncidents,
-                municipality1,
-                municipality2
+                m1,
+                m2
               )}
             />
           </ChartWrapper>

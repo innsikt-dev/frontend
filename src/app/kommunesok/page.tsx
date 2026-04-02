@@ -12,6 +12,7 @@ import MunicipalityView from '@/features/kommunesok/components/municipality'
 import Sidebar from '@/features/kommunesok/components/sidebar'
 import PageHeader from '@/components/page-header'
 import Events from '@/features/kommunesok/components/municipality-events'
+import { appConfig } from '@/lib/app-config/config'
 type Params = {
   searchParams: {
     period: string
@@ -22,7 +23,9 @@ export default async function Page({ searchParams }: Params) {
   const { period, municipality } = await searchParams
   const municipalities = await fetchNames()
   if (!municipalities.success) throw new Error('Kunne ikke laste data')
-  const municipalityData = await fetchMunicipalityData(municipality ?? 'Oslo')
+  const municipalityData = await fetchMunicipalityData(
+    municipality ?? appConfig.defaults.municipality1
+  )
   if (!municipalityData.success) throw new Error('Kunne ikke laste data')
   const analytics = await fetchAnalytics(municipality ?? 'Oslo', period ?? '7d')
   if (!analytics.success) throw new Error('Kunne ikke laste data')

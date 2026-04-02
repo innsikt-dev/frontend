@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/select'
 
 import { usePageParams } from '@/hooks/use-page-params'
-import { useEffect } from 'react'
 import { ComparisonName } from '../../api/types'
 type Props = {
   data: ComparisonName[]
@@ -19,19 +18,10 @@ type Props = {
 export function SelectMenu({ data, paramKey }: Props) {
   const { period, municipality1, municipality2, update } = usePageParams()
 
-  useEffect(() => {
-    if (!municipality1 && !municipality2) {
-      update({ municipality1: 'Oslo', municipality2: 'Bergen', period: '7d' })
-    } else if (!municipality1) {
-      update({ municipality1: 'Oslo', period: '7d' })
-    } else if (!municipality2) {
-      update({ municipality2: 'Bergen', period: '7d' })
-    }
-  }, [])
-
   const currentValue =
-    paramKey === 'municipality1' ? municipality1 : municipality2
-
+    paramKey === 'municipality1'
+      ? (municipality1 ?? 'Oslo')
+      : (municipality2 ?? 'Bergen')
   return (
     <Select
       value={currentValue ?? ''}
