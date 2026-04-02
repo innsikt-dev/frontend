@@ -1,15 +1,17 @@
 'use client'
 import Container from '@/components/wrappers/container'
-import { Municipalities } from '../../api/types'
 import { usePageParams } from '@/hooks/use-page-params'
 import { cn } from '@/lib/cn'
 import { useState } from 'react'
 
 type Props = {
-  data: Municipalities[]
+  data: {
+    municipality_name: string
+  }[]
 }
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ'.split('')
 export default function Sidebar({ data }: Props) {
+  console.log(data)
   const [search, setSearch] = useState('')
   const { period, municipality, update } = usePageParams()
   const groupedMunicipalities = alphabet.map((letter) => ({

@@ -1,10 +1,9 @@
-import { CategoryDistribution } from '@/features/analytics/api/types'
-import { categoryColorHex } from '@/lib/category-map'
 import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
+import { AnalyticsTopMunicipalities } from '../../api/types'
 
-export function buildCategoryDistribution(
-  data: CategoryDistribution[]
+export function buildTopMunicipalities(
+  data: AnalyticsTopMunicipalities[]
 ): EChartsCoreOption {
   return {
     tooltip: {
@@ -13,31 +12,32 @@ export function buildCategoryDistribution(
     },
     grid: { top: 30, left: '3%', right: '4%', bottom: 30, containLabel: true },
     xAxis: {
-      type: 'category',
-      data: data.map((d) => d.category),
-
+      type: 'value',
       axisLabel: { color: '#6b7280' },
       ...chartAxisBase,
     },
     yAxis: {
-      type: 'value',
-
+      type: 'category',
+      data: data.map((d) => d.municipality_name).reverse(),
       axisLabel: { color: '#6b7280' },
-
       ...chartAxisBase,
     },
+
     series: [
       {
         type: 'bar',
-        barMaxWidth: 48,
+        barMaxWidth: 40,
         barWidth: chartBar.barWidth,
-        data: data.map((d) => ({
-          value: d.amount,
-          itemStyle: {
-            color: categoryColorHex[d.category],
-            borderRadius: chartBar.borderRadius,
-          },
-        })),
+
+        data: data
+          .map((d, i) => ({
+            value: d.amount,
+            itemStyle: {
+              color: `hsl(142, 60%, ${35 + i * 5}%)`,
+              borderRadius: chartBar.borderRadius,
+            },
+          }))
+          .reverse(),
       },
     ],
   }

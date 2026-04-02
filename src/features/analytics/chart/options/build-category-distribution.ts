@@ -1,12 +1,17 @@
-import { chartAxisBase, chartBar, chartColors } from '@/lib/chart-config'
-import { MunicipalityCategoryDistribution } from '../../api/types'
+import { AnalyticsCategoryDistribution } from '@/features/analytics/api/types'
+import { categoryColorHex } from '@/lib/category-map'
+import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
+import { EChartsCoreOption } from 'echarts'
 
 export function buildCategoryDistribution(
-  data: MunicipalityCategoryDistribution[]
+  data: AnalyticsCategoryDistribution[]
 ) {
   return {
-    tooltip: { trigger: 'axis' },
-    grid: { top: 20, left: '3%', right: '4%', bottom: 30, containLabel: true },
+    tooltip: {
+      ...chartTooltip,
+      axisPointer: { type: 'shadow' },
+    },
+    grid: { top: 30, left: '3%', right: '4%', bottom: 30, containLabel: true },
     xAxis: {
       type: 'category',
       data: data.map((d) => d.category),
@@ -23,18 +28,17 @@ export function buildCategoryDistribution(
     },
     series: [
       {
-        name: 'Hendelser',
         type: 'bar',
-        barMaxWidth: 40,
+        barMaxWidth: 48,
         barWidth: chartBar.barWidth,
         data: data.map((d) => ({
           value: d.amount,
           itemStyle: {
-            color: chartColors.category[d.category],
+            color: categoryColorHex[d.category],
             borderRadius: chartBar.borderRadius,
           },
         })),
       },
     ],
-  }
+  } satisfies EChartsCoreOption
 }

@@ -1,11 +1,11 @@
 import Container from '@/components/wrappers/container'
-import { ComparisonKPI } from '../../api/types'
+import { ComparisonKpi } from '../../api/types'
 import { Label, Subtitle, Title, Value } from '@/components/typography'
 
 type Props = {
-  data: ComparisonKPI
+  data: ComparisonKpi
 }
-export default function Kpi({ data }: Props) {
+export default function ComparisonKPI({ data }: Props) {
   return (
     <Container className="flex flex-col gap-4">
       <Container className="flex flex-col">

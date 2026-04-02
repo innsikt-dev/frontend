@@ -5,10 +5,10 @@ import TimeRangePicker from '@/components/time-range-picker'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/analytics/api/fetch-analytics'
-import HeatmapChart from '@/features/chart/heatmap'
-import { buildCategoryDistribution } from '@/features/chart/options/build-category-distribution'
-import { buildTopMunicipalities } from '@/features/chart/options/build-top-municipalities'
-import { buildTrends } from '@/features/chart/options/build-trends'
+import HeatmapChart from '@/features/analytics/chart/heatmap'
+import { buildCategoryDistribution } from '@/features/analytics/chart/options/build-category-distribution'
+import { buildTopMunicipalities } from '@/features/analytics/chart/options/build-top-municipalities'
+import { buildTrends } from '@/features/analytics/chart/options/build-trends'
 type Params = {
   searchParams: {
     period: string
@@ -16,7 +16,6 @@ type Params = {
 }
 export default async function Page({ searchParams }: Params) {
   const { period } = await searchParams
-  console.log(period)
   const data = await fetchAnalytics(period ?? '1d')
   if (!data.success) return null
   return (

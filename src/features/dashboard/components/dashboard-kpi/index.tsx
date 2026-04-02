@@ -3,7 +3,7 @@ import { DashboardKpi } from '../../api/types'
 type Props = {
   data: DashboardKpi
 }
-export default function Kpi({ data }: Props) {
+export default function DashboardKPI({ data }: Props) {
   return (
     <ul className="flex items-center gap-5 divide-x divide-muted">
       <li className="flex items-center gap-2">

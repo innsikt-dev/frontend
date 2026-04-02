@@ -1,27 +1,26 @@
-export type HeatMap = {
+export type AnalyticsHeatMap = {
   day: number
   time: number
   amount: number
 }
-export type Trends = {
+export type AnalyticsTrends = {
   date: string
   category: string
   amount: number
 }
 
-export type TopMunicipalities = {
+export type AnalyticsTopMunicipalities = {
   municipality_name: string
   amount: number
 }
-export type CategoryDistribution = {
+export type AnalyticsCategoryDistribution = {
   category: string
   amount: number
 }
 
 export type Analytics = {
-  heatMap: HeatMap[]
-
-  trends: Trends[]
-  topMunicipalities: TopMunicipalities[]
-  categoryDistribution: CategoryDistribution[]
+  heatMap: AnalyticsHeatMap[]
+  trends: AnalyticsTrends[]
+  topMunicipalities: AnalyticsTopMunicipalities[]
+  categoryDistribution: AnalyticsCategoryDistribution[]
 }

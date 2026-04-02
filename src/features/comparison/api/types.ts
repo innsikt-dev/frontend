@@ -19,7 +19,7 @@ export type ComparisonName = {
   municipality_name: string
 }
 
-export type ComparisonKPI = {
+export type ComparisonKpi = {
   municipality_name: string
   district_name: string
   total_incidents: number
@@ -27,8 +27,8 @@ export type ComparisonKPI = {
   most_common_category: string
 }
 export type ComparisonKPIResult = {
-  municipalityOne: ComparisonKPI
-  municipalityTwo: ComparisonKPI
+  municipalityOne: ComparisonKpi
+  municipalityTwo: ComparisonKpi
 }
 
 export type ComparisonParams = {

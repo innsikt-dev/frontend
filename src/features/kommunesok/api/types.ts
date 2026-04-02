@@ -1,5 +1,18 @@
-export type Municipalities = {
-  municipality_name: string
+export type MunicipalityIncidents = {
+  amount: number
+}
+
+export type MunicipalityCommonCategory = {
+  category: string
+}
+
+export type MunicipalityKPI = {
+  incidents: MunicipalityIncidents[]
+  commonCategory: MunicipalityCommonCategory[]
+}
+export type MunicipalityData = {
+  municipality: Municipality
+  kpi: MunicipalityKPI
 }
 
 export type Municipality = {
@@ -7,44 +20,24 @@ export type Municipality = {
   municipality_name: string
   district_name: string
 }
-export type Incidents = {
-  amount: number
-}
-
-export type CommonCategory = {
-  category: string
-}
-export type DatasetDays = {
-  amount: number
-}
-export type Kpi = {
-  incidents: Incidents[]
-  commonCategory: CommonCategory[]
-  datasetDays: DatasetDays[]
-}
-export type MunicipalityData = {
-  municipality: Municipality
-  kpi: Kpi
-}
-
-export type IncidentsOverTime = {
+export type MunicipalityIncidentsOverTime = {
   date: string
   amount: number
 }
 
-export type CategoryDistribution = {
+export type MunicipalityCategoryDistribution = {
   category: string
   amount: number
 }
 
-export type Events = {
+export type MunicipalityEvents = {
   date: string
   text: string
   category: string
   district_name: string
 }
 export type MunicipalityAnalytics = {
-  incidentsOverTime: IncidentsOverTime[]
-  categoryDistribution: CategoryDistribution[]
-  events: Events[]
+  incidentsOverTime: MunicipalityIncidentsOverTime[]
+  categoryDistribution: MunicipalityCategoryDistribution[]
+  events: MunicipalityEvents[]
 }

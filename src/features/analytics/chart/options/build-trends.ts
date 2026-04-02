@@ -1,10 +1,10 @@
-import { Trends } from '@/features/analytics/api/types'
+import { AnalyticsTrends } from '@/features/analytics/api/types'
 import { categoryColorHex } from '@/lib/category-map'
 import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
-import { EChartsOption } from 'echarts'
+import { EChartsCoreOption } from 'echarts'
 
-export function buildTrends(data: Trends[]): EChartsOption {
+export function buildTrends(data: AnalyticsTrends[]) {
   const counter: Record<string, Record<string, number>> = {}
 
   data.forEach((d) => {
@@ -54,9 +54,7 @@ export function buildTrends(data: Trends[]): EChartsOption {
     },
     yAxis: {
       type: 'value',
-
       axisLabel: { color: '#6b7280' },
-      splitLine: { show: false },
       ...chartAxisBase,
     },
     series: series.map((s) => ({
@@ -66,5 +64,5 @@ export function buildTrends(data: Trends[]): EChartsOption {
       lineStyle: { width: 1.5 },
       type: 'line' as const,
     })),
-  }
+  } satisfies EChartsCoreOption
 }

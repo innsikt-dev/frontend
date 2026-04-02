@@ -1,5 +1,5 @@
 'use client'
-import { HeatMap } from '@/features/analytics/api/types'
+import { AnalyticsHeatMap } from '@/features/analytics/api/types'
 import { chartAxisBase, chartTextStyle, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 import ReactECharts from 'echarts-for-react'
@@ -13,7 +13,7 @@ const dowToYIndex: Record<number, number> = {
   6: 1, // lør
   0: 0, // søn
 }
-export default function HeatmapChart({ data }: { data: HeatMap[] }) {
+export default function HeatmapChart({ data }: { data: AnalyticsHeatMap[] }) {
   const existing = new Set(data.map((d) => `${d.time}-${d.day}`))
 
   const series = [...data.map((d) => [d.time, dowToYIndex[d.day], d.amount])]

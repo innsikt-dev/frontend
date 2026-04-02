@@ -1,15 +1,15 @@
 import Container from '@/components/wrappers/container'
-import { Events } from '../../api/types'
 import { MapPin, Clock } from 'lucide-react'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
 import { categoryMap } from '@/lib/category-map'
 import { cn } from '@/lib/cn'
 import { timeAgo } from '@/lib/time-ago'
 import { Subtitle } from '@/components/typography'
+import { MunicipalityEvents } from '../../api/types'
 type Props = {
-  data: Events[]
+  data: MunicipalityEvents[]
 }
-export default function MunicipalityEvents({ data }: Props) {
+export default function Events({ data }: Props) {
   return (
     <Container className="flex flex-col gap-4">
       <Subtitle>Siste hendelser</Subtitle>

@@ -24,7 +24,6 @@ type Payload = {
 export async function fetchAnalytics(
   payload: Payload
 ): Promise<Result<MunicipalityComparison>> {
-  console.log(payload)
   const res = await fetch(
     `${API_URL}/comparison/municipalities/analytics?municipality1=${
       payload.id1

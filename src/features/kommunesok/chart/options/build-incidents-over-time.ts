@@ -1,8 +1,8 @@
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
-import { IncidentsOverTime } from '../../api/types'
+import { MunicipalityIncidentsOverTime } from '../../api/types'
 import { chartAxisBase, chartColors } from '@/lib/chart-config'
 
-export function buildIncidentsOverTime(data: IncidentsOverTime[]) {
+export function buildIncidentsOverTime(data: MunicipalityIncidentsOverTime[]) {
   return {
     tooltip: { trigger: 'axis' },
     grid: { top: 20, left: '3%', right: '4%', bottom: 30, containLabel: true },

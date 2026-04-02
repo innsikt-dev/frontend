@@ -7,10 +7,11 @@ import { fetchMunicipalityData } from '@/features/kommunesok/api/fetch-municipal
 import { fetchNames } from '@/features/kommunesok/api/fetch-names'
 import { buildCategoryDistribution } from '@/features/kommunesok/chart/options/build-category-distribution'
 import { buildIncidentsOverTime } from '@/features/kommunesok/chart/options/build-incidents-over-time'
-import MunicipalityEvents from '@/features/kommunesok/components/municipality-events'
+
 import MunicipalityView from '@/features/kommunesok/components/municipality'
 import Sidebar from '@/features/kommunesok/components/sidebar'
 import PageHeader from '@/components/page-header'
+import Events from '@/features/kommunesok/components/municipality-events'
 type Params = {
   searchParams: {
     period: string
@@ -49,7 +50,7 @@ export default async function Page({ searchParams }: Params) {
               )}
             />
           </ChartWrapper>
-          <MunicipalityEvents data={analytics.data.events} />
+          <Events data={analytics.data.events} />
         </Container>
       </Container>
     </Section>

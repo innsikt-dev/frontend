@@ -4,7 +4,7 @@ import { DashboardEvent } from '../../api/types'
 import { categoryMap } from '@/lib/category-map'
 import { timeAgo } from '@/lib/time-ago'
 
-export default function Events({ data }: { data: DashboardEvent[] }) {
+export default function DashboardEvents({ data }: { data: DashboardEvent[] }) {
   return (
     <ul className="w-[30%]">
       {data.map((d) => (

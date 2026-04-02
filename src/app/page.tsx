@@ -2,10 +2,11 @@ import MapClient from '@/components/map'
 import Container from '@/components/wrappers/container'
 import { fetchDashboardData } from '@/features/dashboard/api/fetch-dashboard-data'
 import { fetchThread } from '@/features/dashboard/api/fetch-thread'
+import DashboardKPI from '@/features/dashboard/components/dashboard-kpi'
 /* import Categories from '@/features/dashboard/components/categories' */
-import Kpi from '@/features/dashboard/components/kpi'
 import Threads from '@/features/dashboard/components/threads'
 import { categoryColorHex } from '@/lib/category-map'
+import { error } from 'console'
 type Params = {
   searchParams: {
     thread: string
@@ -15,7 +16,7 @@ type Params = {
 export default async function Page({ searchParams }: Params) {
   const { thread, category } = await searchParams
   const dashboardData = await fetchDashboardData()
-  if (!dashboardData.success) return null
+  if (!dashboardData.success) throw error('Kunne ikke laste data')
   const threads = await fetchThread(thread)
   const threadData = threads.success ? threads.data : null
   const filteredEvents = category
@@ -26,7 +27,7 @@ export default async function Page({ searchParams }: Params) {
     <Container className="h-[92vh] bg-surface">
       <Container className="flex h-full w-full grow relative">
         <Container className="absolute z-[1000] top-3 left-40 bg-surface/50 py-2 px-4 rounded-lg">
-          <Kpi data={dashboardData.data.kpi} />
+          <DashboardKPI data={dashboardData.data.kpi} />
         </Container>
         {/*     <Container className="absolute z-[1000] bottom-3 left-40">
           <Categories data={dashboardData.data.totalCategories} />
