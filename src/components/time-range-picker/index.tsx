@@ -33,7 +33,7 @@ export default function TimeRangePicker() {
     if (!period) update({ period: '7d' })
   }, [period, update])
   return (
-    <ul className="flex gap-4 border border-line   py-2 px-4 rounded-xl">
+    <ul className="flex gap-4 border border-line   py-2 px-4 rounded-lg">
       {ranges.map((r) => (
         <button
           onClick={() => update({ period: r.range })}

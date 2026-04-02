@@ -1,6 +1,5 @@
 import Container from '@/components/wrappers/container'
 import { MunicipalityData } from '../../api/types'
-import TimeRangePicker from '@/components/time-range-picker'
 import { Label, Value } from '@/components/typography'
 
 type Props = {
@@ -21,7 +20,6 @@ export default function MunicipalityView({ data }: Props) {
             <Value>{data.kpi.commonCategory[0].category}</Value>
           </Container>
         </Container>
-        <TimeRangePicker />
       </Container>
     </>
   )

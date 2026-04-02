@@ -33,12 +33,10 @@ export default async function Page({ searchParams }: Params) {
     <Section className="flex h-[92vh]">
       <Sidebar data={municipalities.data} />
       <Container className="flex flex-col gap-4  px-12 grow mx-auto  overflow-y-auto">
-        <Container className="mb-4">
-          <PageHeader
-            title={municipalityData.data.municipality.municipality_name}
-            subtitle={municipalityData.data.municipality.district_name}
-          />
-        </Container>
+        <PageHeader
+          title={municipalityData.data.municipality.municipality_name}
+          subtitle={municipalityData.data.municipality.district_name}
+        />
         <MunicipalityView data={municipalityData.data} />
         <Container>
           <ChartWrapper title="Hendelser over tid">

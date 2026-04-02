@@ -4,7 +4,6 @@ import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/comparison/api/fetch-analytics'
 import { fetchComparisonKPI } from '@/features/comparison/api/fetch-comparison-kpi'
 import { fetchNames } from '@/features/kommunesok/api/fetch-names'
-import TimeRangePicker from '@/components/time-range-picker'
 import Kpi from '@/features/comparison/components/kpi'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import Chart from '@/components/chart'
@@ -42,12 +41,10 @@ export default async function Page({ searchParams }: Params) {
   return (
     <Section className="flex flex-col">
       <Container className="flex flex-col gap-4  items-center gap-2 w-full">
-        <Container className="mb-4 self-start">
-          <PageHeader
-            title="Sammenlign kommuner"
-            subtitle="Sammenlign hendelsesdata mellom to kommuner"
-          />
-        </Container>
+        <PageHeader
+          title="Sammenlign kommuner"
+          subtitle="Sammenlign hendelsesdata mellom to kommuner"
+        />
         <Container className="flex  gap-4 items-center w-full">
           <SelectMenu
             data={availableMunicipalities.data}
@@ -58,9 +55,6 @@ export default async function Page({ searchParams }: Params) {
             data={availableMunicipalities.data}
             paramKey="municipality2"
           />
-          <Container className="ml-auto">
-            <TimeRangePicker />
-          </Container>
         </Container>
       </Container>
 

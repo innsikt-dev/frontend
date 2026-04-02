@@ -1,7 +1,6 @@
 import Chart from '@/components/chart'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import PageHeader from '@/components/page-header'
-import TimeRangePicker from '@/components/time-range-picker'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/analytics/api/fetch-analytics'
@@ -20,13 +19,10 @@ export default async function Page({ searchParams }: Params) {
   if (!data.success) return null
   return (
     <Section className="flex flex-col">
-      <Container className="flex  items-end justify-between">
-        <PageHeader
-          title="Historikk"
-          subtitle="Utforsk mønstre og trender i politiloggen over tid"
-        />
-        <TimeRangePicker />
-      </Container>
+      <PageHeader
+        title="Analyse"
+        subtitle="Utforsk mønstre og trender i politiloggen over tid"
+      />
       <ChartWrapper title="Aktivitet etter dag og time">
         <HeatmapChart data={data.data.heatMap} />
       </ChartWrapper>

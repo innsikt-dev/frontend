@@ -14,14 +14,14 @@ export const navItems = [
   },
   {
     id: 3,
-    icon: Search,
-    label: 'Kommunesøk',
-    path: '/kommunesok',
-  },
-  {
-    id: 4,
     icon: GitCompare,
     label: 'Sammenlign',
     path: '/sammenlign',
+  },
+  {
+    id: 4,
+    icon: Search,
+    label: 'Kommunesøk',
+    path: '/kommunesok',
   },
 ]
