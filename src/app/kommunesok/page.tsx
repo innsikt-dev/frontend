@@ -27,9 +27,9 @@ export default async function Page({ searchParams }: Params) {
   const analytics = await fetchAnalytics(municipality ?? 'Oslo', period ?? '7d')
   if (!analytics.success) throw new Error('Kunne ikke laste data')
   return (
-    <Section className="flex  gap-20 py-5 h-[92vh]">
+    <Section className="flex h-[92vh]">
       <Sidebar data={municipalities.data} />
-      <Container className="flex flex-col gap-4  px-12 grow mx-auto  overflow-scroll">
+      <Container className="flex flex-col gap-4  px-12 grow mx-auto  overflow-y-auto">
         <Container className="mb-4">
           <PageHeader
             title={municipalityData.data.municipality.municipality_name}

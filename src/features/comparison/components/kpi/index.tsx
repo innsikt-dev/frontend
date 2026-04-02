@@ -13,15 +13,15 @@ export default function ComparisonKPI({ data }: Props) {
         <Subtitle>{data.district_name}</Subtitle>
       </Container>
       <Container className="flex gap-4">
-        <Container className="flex items-center gap-2">
+        <Container className="flex items-center gap-1">
           <Label>hendelser</Label>
           <Value>{data.total_incidents}</Value>
         </Container>
-        <Container className="flex items-center gap-2">
+        <Container className="flex items-center gap-1">
           <Label>vanligst</Label>
           <Value>{data.most_common_category}</Value>
         </Container>
-        <Container className="flex items-center gap-2">
+        <Container className="flex items-center gap-1">
           <Label>per dag</Label>
           <Value>{data.avg_per_day}</Value>
         </Container>

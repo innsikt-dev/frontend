@@ -19,7 +19,7 @@ export default async function Page({ searchParams }: Params) {
   const data = await fetchAnalytics(period ?? '1d')
   if (!data.success) return null
   return (
-    <Section className="flex flex-col gap-20 py-5 max-w-7xl w-full mx-auto">
+    <Section className="flex flex-col">
       <Container className="flex  items-end justify-between">
         <PageHeader
           title="Historikk"

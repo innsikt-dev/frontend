@@ -40,7 +40,7 @@ export default async function Page({ searchParams }: Params) {
   if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')
 
   return (
-    <Section className="flex flex-col max-w-7xl w-full mx-auto  gap-20 py-5">
+    <Section className="flex flex-col">
       <Container className="flex flex-col gap-4  items-center gap-2 w-full">
         <Container className="mb-4 self-start">
           <PageHeader
@@ -71,7 +71,7 @@ export default async function Page({ searchParams }: Params) {
 
       {analytics.success && (
         <>
-          <ChartWrapper title="">
+          <ChartWrapper title="Hendelser over tid">
             <Chart
               option={buildComparisonIncidentsOverTime(
                 analytics.data.incidentsOverTime,
@@ -80,7 +80,7 @@ export default async function Page({ searchParams }: Params) {
               )}
             />
           </ChartWrapper>
-          <ChartWrapper title="">
+          <ChartWrapper title="Kategorifordeling">
             <Chart
               option={buildComparisonCategoryDistribution(
                 analytics.data.keywordIncidents,
