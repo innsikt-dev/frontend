@@ -1,5 +1,11 @@
 'use client'
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
+import {
+  MapContainer,
+  TileLayer,
+  CircleMarker,
+  Popup,
+  useMapEvents,
+} from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import { useRef } from 'react'
 import type { Popup as LeafletPopup } from 'leaflet'
@@ -20,8 +26,13 @@ type Props = {
   markers?: Marker[]
 }
 
+function MapClickHandler({ onMapClick }: { onMapClick: () => void }) {
+  useMapEvents({ click: onMapClick })
+  return null
+}
+
 function MarkerWithPopup({ m }: { m: Marker }) {
-  const { update, category } = useMapParams()
+  const { thread, clearThread, update, category } = useMapParams()
   const popupRef = useRef<LeafletPopup>(null)
 
   const handleReadThread = () => {
@@ -37,6 +48,11 @@ function MarkerWithPopup({ m }: { m: Marker }) {
         color: m.color ?? '#dc2626',
         fillColor: m.color ?? '#dc2626',
         fillOpacity: 0.8,
+      }}
+      eventHandlers={{
+        click: () => {
+          if (thread) clearThread()
+        },
       }}
     >
       <Popup ref={popupRef} closeButton={false}>
@@ -93,6 +109,8 @@ function MarkerWithPopup({ m }: { m: Marker }) {
 }
 
 export default function MapClient({ markers = [] }: Props) {
+  const { clearThread, thread } = useMapParams()
+
   return (
     <div className="relative w-full h-full">
       <MapContainer
@@ -104,6 +122,11 @@ export default function MapClient({ markers = [] }: Props) {
         <TileLayer
           url="https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}{r}.png"
           attribution="© OpenStreetMap © CartoDB"
+        />
+        <MapClickHandler
+          onMapClick={() => {
+            if (thread) clearThread()
+          }}
         />
         {markers.map((m, i) => (
           <MarkerWithPopup key={i} m={m} />
