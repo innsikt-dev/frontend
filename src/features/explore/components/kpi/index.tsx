@@ -1,9 +1,9 @@
 import Container from '@/components/wrappers/container'
-import { ComparisonKpi } from '../../api/types'
+import { MunicipalityKpi } from '../../api/types'
 import { Label, Subtitle, Title, Value } from '@/components/typography'
 
 type Props = {
-  data: ComparisonKpi
+  data: MunicipalityKpi
 }
 export default function ComparisonKPI({ data }: Props) {
   return (

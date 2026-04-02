@@ -1,4 +1,4 @@
-import { Radio, ChartNoAxesColumn, Search, GitCompare } from 'lucide-react'
+import { Radio, ChartNoAxesColumn, GitCompare } from 'lucide-react'
 export const navItems = [
   {
     id: 1,
@@ -15,13 +15,7 @@ export const navItems = [
   {
     id: 3,
     icon: GitCompare,
-    label: 'Sammenlign',
-    path: '/sammenlign',
-  },
-  {
-    id: 4,
-    icon: Search,
-    label: 'Kommunesøk',
-    path: '/kommunesok',
+    label: 'Utforsk',
+    path: '/utforsk',
   },
 ]

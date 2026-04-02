@@ -1,14 +1,14 @@
-import { SelectMenu } from '@/features/comparison/components/select-menu'
+import { SelectMenu } from '@/features/explore/components/select-menu'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
-import { fetchAnalytics } from '@/features/comparison/api/fetch-analytics'
-import { fetchComparisonKPI } from '@/features/comparison/api/fetch-comparison-kpi'
-import { fetchNames } from '@/features/kommunesok/api/fetch-names'
-import Kpi from '@/features/comparison/components/kpi'
+import { fetchAnalytics } from '@/features/explore/api/fetch-analytics'
+import { fetchComparisonKPI } from '@/features/explore/api/fetch-comparison-kpi'
+import { fetchMunicipalitiesNames } from '@/features/explore/api/municipalities/fetch-municipalities-names'
+import Kpi from '@/features/explore/components/kpi'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import Chart from '@/components/chart'
-import { buildComparisonIncidentsOverTime } from '@/features/comparison/chart/options/build-incidents-over-time'
-import { buildComparisonCategoryDistribution } from '@/features/comparison/chart/options/build-category-distribution'
+import { buildComparisonIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
+import { buildComparisonCategoryDistribution } from '@/features/explore/chart/options/build-category-distribution'
 import { appConfig } from '@/lib/app-config/config'
 import PageHeader from '@/components/page-header'
 
@@ -34,7 +34,7 @@ export default async function Page({ searchParams }: Params) {
     id2: m2,
     period: period ?? appConfig.defaults.period,
   })
-  const availableMunicipalities = await fetchNames()
+  const availableMunicipalities = await fetchMunicipalitiesNames()
   if (!availableMunicipalities.success)
     throw new Error('Kunne ikke laste siden')
   if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')

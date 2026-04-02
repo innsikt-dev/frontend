@@ -1,5 +1,5 @@
 import { EChartsCoreOption } from 'echarts'
-import { ComparisonAnalytics } from '../../api/types'
+import { MunicipalityAnalytics } from '../../api/types'
 import {
   chartAxisBase,
   chartBar,
@@ -9,7 +9,7 @@ import {
 } from '@/lib/chart-config'
 
 export function buildComparisonCategoryDistribution(
-  data: ComparisonAnalytics['categoryDistribution'],
+  data: MunicipalityAnalytics['categoryDistribution'],
   municipalityOne: string,
   municipalityTwo: string
 ): EChartsCoreOption {

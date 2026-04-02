@@ -1,10 +1,10 @@
 import { Result } from '@/lib/api/types'
 import { API_URL } from '@/lib/env'
-import { ComparisonKPIResult, ComparisonParams } from './types'
+import { MunicipalityParams, MunicipalityKPIResult } from './types'
 
 export async function fetchComparisonKPI(
-  queryParams: ComparisonParams
-): Promise<Result<ComparisonKPIResult>> {
+  queryParams: MunicipalityParams
+): Promise<Result<MunicipalityKPIResult>> {
   const res = await fetch(
     `${API_URL}/comparison/municipalities?municipality1=${
       queryParams.id1

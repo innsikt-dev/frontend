@@ -1,10 +1,10 @@
 import { EChartsCoreOption } from 'echarts'
-import { ComparisonAnalytics } from '../../api/types'
+import { MunicipalityAnalytics } from '../../api/types'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
 import { chartAxisBase, chartGrid, chartTooltip } from '@/lib/chart-config'
 
 export function buildComparisonIncidentsOverTime(
-  data: ComparisonAnalytics['incidentsOverTime'],
+  data: MunicipalityAnalytics['incidentsOverTime'],
   municipalityOne: string,
   municipalityTwo: string
 ): EChartsCoreOption {
