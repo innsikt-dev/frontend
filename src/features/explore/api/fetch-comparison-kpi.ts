@@ -6,7 +6,7 @@ export async function fetchComparisonKPI(
   queryParams: MunicipalityParams
 ): Promise<Result<MunicipalityKPIResult>> {
   const res = await fetch(
-    `${API_URL}/comparison/municipalities?municipality1=${
+    `${API_URL}/explore/municipalities?municipality1=${
       queryParams.id1
     }&municipality2=${queryParams.id2}&period=${queryParams.period}`,
     { cache: 'no-cache' }

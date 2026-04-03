@@ -3,7 +3,7 @@ import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/explore/api/fetch-analytics'
 import { fetchComparisonKPI } from '@/features/explore/api/fetch-comparison-kpi'
-import { fetchMunicipalitiesNames } from '@/features/explore/api/municipalities/fetch-municipalities-names'
+import { fetchMunicipalitiesNames } from '@/features/explore/api/fetch-municipalities-names'
 import Kpi from '@/features/explore/components/kpi'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import Chart from '@/components/chart'
@@ -23,6 +23,7 @@ export default async function Page({ searchParams }: Params) {
   const { municipality1, municipality2, period } = await searchParams
   const m1 = municipality1 ?? appConfig.defaults.municipality1
   const m2 = municipality2 ?? appConfig.defaults.municipality2
+
   const analytics = await fetchAnalytics({
     id1: m1,
     id2: m2,

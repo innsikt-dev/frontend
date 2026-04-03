@@ -5,6 +5,7 @@ type Patch = {
   municipality?: string | null
   municipality1?: string | null
   municipality2?: string | null
+  type?: string | null
 }
 
 export function usePageParams() {
@@ -24,5 +25,11 @@ export function usePageParams() {
     router.push(`?${current}`)
   }
 
-  return { period, municipality, municipality1, municipality2, update }
+  return {
+    period,
+    municipality,
+    municipality1,
+    municipality2,
+    update,
+  }
 }

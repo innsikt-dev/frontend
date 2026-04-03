@@ -4,7 +4,6 @@ import { fetchDashboardData } from '@/features/dashboard/api/fetch-dashboard-dat
 import { fetchThread } from '@/features/dashboard/api/fetch-thread'
 import Threads from '@/features/dashboard/components/threads'
 import { categoryColorHex } from '@/lib/category-map'
-import { error } from 'console'
 type Params = {
   searchParams: {
     thread: string
@@ -14,7 +13,7 @@ type Params = {
 export default async function Page({ searchParams }: Params) {
   const { thread, category } = await searchParams
   const dashboardData = await fetchDashboardData()
-  if (!dashboardData.success) throw error('Kunne ikke laste data')
+  if (!dashboardData.success) throw Error('Kunne ikke laste data')
   const threads = await fetchThread(thread)
   const threadData = threads.success ? threads.data : null
   const filteredEvents = category

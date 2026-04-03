@@ -1,5 +1,3 @@
-import { EChartsCoreOption } from 'echarts'
-import { MunicipalityAnalytics } from '../../api/types'
 import {
   chartAxisBase,
   chartBar,
@@ -7,13 +5,22 @@ import {
   chartGrid,
   chartTooltip,
 } from '@/lib/chart-config'
+import { MunicipalityAnalytics } from '../../api/types'
+import { EChartsCoreOption } from 'echarts'
 
 export function buildComparisonCategoryDistribution(
   data: MunicipalityAnalytics['categoryDistribution'],
   municipalityOne: string,
-  municipalityTwo: string
+  municipalityTwo: string,
+  showPercent: boolean = false
 ): EChartsCoreOption {
   const counter: Record<string, Record<string, number>> = {}
+  const m1Total = data
+    .filter((d) => d.municipality_name === municipalityOne)
+    .reduce((acc, cur) => acc + cur.amount, 0)
+  const m2Total = data
+    .filter((d) => d.municipality_name === municipalityTwo)
+    .reduce((acc, cur) => acc + cur.amount, 0)
 
   data.forEach((d) => {
     if (!counter[d.category]) counter[d.category] = {}
@@ -25,7 +32,6 @@ export function buildComparisonCategoryDistribution(
   return {
     tooltip: {
       ...chartTooltip,
-
       trigger: 'axis',
     },
     legend: {
@@ -36,16 +42,23 @@ export function buildComparisonCategoryDistribution(
       itemHeight: 8,
     },
     grid: { containLabel: true, ...chartGrid },
-    xAxis: {
+    _xAxis: {
       type: 'category',
       data: categories,
-
       axisLabel: { color: '#6b7280' },
       ...chartAxisBase,
     },
+    get xAxis() {
+      return this._xAxis
+    },
+    set xAxis(value) {
+      this._xAxis = value
+    },
     yAxis: {
       type: 'value',
-      axisLabel: { color: '#6b7280' },
+      axisLabel: {
+        color: '#6b7280',
+      },
       ...chartAxisBase,
     },
     series: [
@@ -58,7 +71,10 @@ export function buildComparisonCategoryDistribution(
           color: chartColors.comparison[0],
           borderRadius: chartBar.borderRadius,
         },
-        data: categories.map((cat) => counter[cat][municipalityOne] ?? 0),
+        data: categories.map((cat) => {
+          const raw = counter[cat][municipalityOne] ?? 0
+          return showPercent ? +((raw / m1Total) * 100).toFixed(1) : raw
+        }),
       },
       {
         name: municipalityTwo,
@@ -69,7 +85,10 @@ export function buildComparisonCategoryDistribution(
           color: chartColors.comparison[1],
           borderRadius: chartBar.borderRadius,
         },
-        data: categories.map((cat) => counter[cat][municipalityTwo] ?? 0),
+        data: categories.map((cat) => {
+          const raw = counter[cat][municipalityTwo] ?? 0
+          return showPercent ? +((raw / m2Total) * 100).toFixed(1) : raw
+        }),
       },
     ],
   }

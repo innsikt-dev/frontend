@@ -25,7 +25,7 @@ export async function fetchAnalytics(
   payload: Payload
 ): Promise<Result<MunicipalityComparison>> {
   const res = await fetch(
-    `${API_URL}/comparison/municipalities/analytics?municipality1=${
+    `${API_URL}/explore/municipalities/analytics?municipality1=${
       payload.id1
     }&municipality2=${payload.id2}&period=${payload.period}`,
     { cache: 'no-cache' }
