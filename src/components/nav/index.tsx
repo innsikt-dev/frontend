@@ -6,11 +6,9 @@ export default function Nav() {
     <nav>
       <ul className="flex justify-between items-end text-content gap-4">
         {navItems.map((item) => {
-          const Icon = item.icon
           return (
-            <li className="nav-link" key={item.id}>
+            <li className="nav-link cursor-pointer" key={item.id}>
               <Link className="flex items-center gap-2" href={item.path}>
-                <Icon size={14} />
                 {item.label}
               </Link>
             </li>
