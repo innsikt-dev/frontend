@@ -10,12 +10,12 @@ export type DistrictTrend = {
   amount: number
   date: string
 }
-export type CategoryDistribution = {
+export type DistrictCategoryDistribution = {
   category: string
   amount: number
 }
 
 export type DistrictAnalytics = {
   trends: DistrictTrend[]
-  categoryDistribution: CategoryDistribution[]
+  categoryDistribution: DistrictCategoryDistribution[]
 }
