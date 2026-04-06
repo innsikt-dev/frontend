@@ -4,13 +4,13 @@ import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/explore/api/fetch-analytics'
 import { fetchComparisonKPI } from '@/features/explore/api/fetch-comparison-kpi'
 import { fetchMunicipalitiesNames } from '@/features/explore/api/fetch-municipalities-names'
-import Kpi from '@/features/explore/components/kpi'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import Chart from '@/components/chart'
 import { buildComparisonIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
 import { buildComparisonCategoryDistribution } from '@/features/explore/chart/options/build-category-distribution'
 import { appConfig } from '@/lib/app-config/config'
 import PageHeader from '@/components/page-header'
+import ExploreKpi from '@/features/explore/components/kpi'
 
 type Params = {
   searchParams: {
@@ -60,8 +60,8 @@ export default async function Page({ searchParams }: Params) {
       </Container>
 
       <Container className="flex gap-12">
-        <Kpi data={comparisonKpi.data.municipalityOne} />
-        <Kpi data={comparisonKpi.data.municipalityTwo} />
+        <ExploreKpi data={comparisonKpi.data.municipalityOne} />
+        <ExploreKpi data={comparisonKpi.data.municipalityTwo} />
       </Container>
 
       {analytics.success && (
