@@ -42,6 +42,7 @@ export function buildDistrictCategoryDistribution(
             0,
           ],
         },
+        ...chartBar,
         data: data
           .map((d) => ({
             value: d.amount,

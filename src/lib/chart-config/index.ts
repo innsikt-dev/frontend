@@ -48,6 +48,7 @@ export const chartLine = {
   smooth: true,
   showSymbol: false,
   lineStyle: { width: 2 },
+
   areaStyle: {
     opacity: 0.05,
   },

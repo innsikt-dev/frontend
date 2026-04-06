@@ -23,7 +23,7 @@ export function usePageParams() {
       if (value === null) current.delete(key)
       else if (value) current.set(key, value)
     }
-    router.push(`?${current}`)
+    router.push(`?${current}`, { scroll: false })
   }
 
   return {

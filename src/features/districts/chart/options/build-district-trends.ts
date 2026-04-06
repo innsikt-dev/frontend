@@ -64,11 +64,15 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
     },
     series: series.map((s) => ({
       ...s,
-      smooth: chartLine.smooth,
       showsSymbol: chartLine.showSymbol,
       symbol: 'none',
-      lineStyle: chartLine.lineStyle,
       type: 'line' as const,
+      smooth: chartLine.smooth,
+      showSymbol: chartLine.showSymbol,
+      lineStyle: chartLine.lineStyle,
+      areaStyle: {
+        opacity: series.length === 1 ? 0.05 : 0,
+      },
     })),
   } satisfies EChartsCoreOption
 }
