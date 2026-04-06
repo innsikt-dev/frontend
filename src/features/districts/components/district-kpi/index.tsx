@@ -1,36 +1,66 @@
+'use client'
 import { cn } from '@/lib/cn'
 import { DistrictKPI } from '../../api/types'
 import { districtColors } from '@/lib/district-map'
+import { usePageParams } from '@/hooks/use-page-params'
+import Container from '@/components/wrappers/container'
+import { replaceDistrict } from '@/features/districts/replace-district'
 
 type Props = {
   data: DistrictKPI[]
 }
 export default function DistrictKpi({ data }: Props) {
+  const { district, update } = usePageParams()
+  function setDistrict(district_name: string) {
+    update({ district: district === district_name ? null : district_name })
+  }
+
   return (
-    <ul className="grid grid-cols-4 gap-x-5 gap-y-4">
-      {data.map((data, i) => (
-        <li key={`${data.district_name}-${i}`}>
-          <button className="flex flex-col items-start w-full border rounded-lg border-line/50 py-4 px-4 hover:border-line hover:shadow-xs duration-100 cursor-pointer">
-            {' '}
-            <span className="flex gap-1 items-center text-xs font-bold mb-1">
-              <span
-                className={cn(
-                  'w-2 h-2 block rounded-full',
-                  districtColors[data.district_name.toLowerCase()].color
-                )}
-              ></span>
-              <span> {data.district_name}</span>
-            </span>
-            <span className="kpi-value text-lg">{data.total_incidents}</span>
-            <span className="text-xs text-content-muted">
-              <span>{data.active ?? 0}</span> <span>aktive</span>
-            </span>
-            <span className="text-xs text-content-muted italic">
-              {data.top_category}
-            </span>
-          </button>
-        </li>
-      ))}
-    </ul>
+    <Container>
+      <Container>
+        <p className="text-xs text-content-muted mb-1">
+          {district ? (
+            <span> Trykk på {replaceDistrict(district)} for å nullstille</span>
+          ) : (
+            <span> Trykk på et distrikt for å filtrere</span>
+          )}
+        </p>
+      </Container>
+      <ul className="grid grid-cols-4 gap-x-5 gap-y-4">
+        {data.map((data, i) => (
+          <li key={`${data.district_name}-${i}`}>
+            <button
+              onClick={() => setDistrict(data.district_name)}
+              className={cn(
+                'flex flex-col items-start w-full border rounded-lg border-line/50 py-4 px-4 hover:border-line hover:shadow-xs duration-100 cursor-pointer',
+                {
+                  'border-gray-300': district === data.district_name,
+                }
+              )}
+            >
+              {' '}
+              <span className="flex gap-1 items-center text-xs font-bold mb-1">
+                <span
+                  className={cn(
+                    'w-2 h-2 block rounded-full',
+                    districtColors[
+                      replaceDistrict(data.district_name.toLowerCase())
+                    ]?.color
+                  )}
+                ></span>
+                <span> {replaceDistrict(data.district_name)}</span>
+              </span>
+              <span className="kpi-value text-lg">{data.total_incidents}</span>
+              <span className="text-xs text-content-muted">
+                <span>{data.active ?? 0}</span> <span>aktive</span>
+              </span>
+              <span className="text-xs text-content-muted italic">
+                {data.top_category}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </Container>
   )
 }

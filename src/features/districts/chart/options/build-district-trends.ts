@@ -3,6 +3,7 @@ import { EChartsCoreOption } from 'echarts'
 import { DistrictTrend } from '../../api/types'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
 import { districtColors } from '@/lib/district-map'
+import { replaceDistrict } from '../../replace-district'
 
 export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
   const counter: Record<string, Record<string, number>> = {}
@@ -28,9 +29,8 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
   )
 
   const series = districts.map((district) => {
-    const d = district.replace('Politidistrikt', '')
     return {
-      name: d,
+      name: replaceDistrict(district),
       type: 'line',
       itemStyle: { color: districtColors[district.toLowerCase()]?.colorHex },
       data: dates.map((date) => counter[date][district] ?? 0),

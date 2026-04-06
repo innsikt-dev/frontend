@@ -9,9 +9,16 @@ import { buildDistrictCategoryDistribution } from '@/features/districts/chart/op
 import { buildDistrictTrends } from '@/features/districts/chart/options/build-district-trends'
 import DistrictKpi from '@/features/districts/components/district-kpi'
 
-export default async function Page() {
+type Params = {
+  searchParams: {
+    period: string
+    district: string
+  }
+}
+export default async function Page({ searchParams }: Params) {
+  const { period, district } = await searchParams
   const kpi = await fetchDistrictsKpi()
-  const analytics = await fetchDistrictsAnalytics()
+  const analytics = await fetchDistrictsAnalytics({ district, period })
   if (!kpi.success) throw new Error('Kan ikke laste data')
   if (!analytics.success) throw new Error('Kan ikke laste data')
   return (
