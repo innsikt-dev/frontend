@@ -20,6 +20,7 @@ type Payload = {
   id1: string
   id2: string
   period: string
+  perCapita: string
 }
 export async function fetchAnalytics(
   payload: Payload
@@ -27,7 +28,7 @@ export async function fetchAnalytics(
   const res = await fetch(
     `${API_URL}/explore/municipalities/analytics?municipality1=${
       payload.id1
-    }&municipality2=${payload.id2}&period=${payload.period}`,
+    }&municipality2=${payload.id2}&period=${payload.period}&perCapita=${payload.perCapita}`,
     { cache: 'no-cache' }
   )
   if (!res.ok) return { success: false, data: null }
