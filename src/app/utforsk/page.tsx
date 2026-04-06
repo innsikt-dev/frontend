@@ -11,16 +11,24 @@ import { appConfig } from '@/lib/app-config/config'
 import PageHeader from '@/components/page-header'
 import ExploreKpi from '@/features/explore/components/kpi'
 import { buildIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
+import { Metadata } from 'next'
+import PerInhabitant from '@/features/explore/components/per-inhabitant'
+
+export const metadata: Metadata = {
+  title: 'Utforsk | Innsikt',
+  description: 'Sammenlign kommuner mot hverandre',
+}
 
 type Params = {
   searchParams: {
     municipality1: string
     municipality2: string
     period: string
+    perCapita: string
   }
 }
 export default async function Page({ searchParams }: Params) {
-  const { municipality1, municipality2, period } = await searchParams
+  const { municipality1, municipality2, period, perCapita } = await searchParams
   const m1 = municipality1 ?? appConfig.defaults.municipality1
   const m2 = municipality2 ?? appConfig.defaults.municipality2
 
@@ -28,6 +36,7 @@ export default async function Page({ searchParams }: Params) {
     id1: m1,
     id2: m2,
     period: period ?? appConfig.defaults.period,
+    perCapita,
   })
 
   const comparisonKpi = await fetchComparisonKPI({
@@ -57,6 +66,7 @@ export default async function Page({ searchParams }: Params) {
             data={availableMunicipalities.data}
             paramKey="municipality2"
           />
+          <PerInhabitant />
         </Container>
       </Container>
 

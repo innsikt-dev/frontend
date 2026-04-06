@@ -1,7 +1,7 @@
 'use client'
 
 import { usePageParams } from '@/hooks/use-page-params'
-import { cn } from '@/lib/cn'
+import { cn } from '@/lib/utils'
 import { useEffect } from 'react'
 
 const ranges = [

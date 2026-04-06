@@ -1,10 +1,10 @@
 'use client'
 import { categoryColorHex } from '@/lib/category-map'
-import { cn } from '@/lib/cn'
 import { useMapParams } from '@/hooks/use-map-params'
 import { DashboardCategory } from '@/features/dashboard/api/types'
 import { Info, X } from 'lucide-react'
 import Container from '@/components/wrappers/container'
+import { cn } from '@/lib/utils'
 type Props = {
   data: DashboardCategory[]
 }

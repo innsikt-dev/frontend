@@ -6,6 +6,7 @@ type Patch = {
   municipality1?: string | null
   municipality2?: string | null
   district?: string | null
+  perCapita?: string | null
 }
 
 export function usePageParams() {
@@ -16,6 +17,7 @@ export function usePageParams() {
   const municipality1 = params.get('municipality1')
   const municipality2 = params.get('municipality2')
   const district = params.get('district')
+  const perCapita = params.get('perCapita')
 
   function update(patch: Patch) {
     const current = new URLSearchParams(params.toString())
@@ -27,6 +29,7 @@ export function usePageParams() {
   }
 
   return {
+    perCapita,
     district,
     period,
     municipality,

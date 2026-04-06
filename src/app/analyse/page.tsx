@@ -8,6 +8,13 @@ import HeatmapChart from '@/features/analytics/chart/heatmap'
 import { buildAnalyticsCategoryDistribution } from '@/features/analytics/chart/options/build-analytics-category-distribution'
 import { buildAnalyticsTopMunicipalities } from '@/features/analytics/chart/options/build-analytics-top-municipalities'
 import { buildAnalyticsTrends } from '@/features/analytics/chart/options/build-analytics-trends'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Analyse | Innsikt',
+  description: 'All data over tid – mønstre og trender i politiloggen',
+}
+
 type Params = {
   searchParams: {
     period: string

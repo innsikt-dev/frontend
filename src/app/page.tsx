@@ -5,6 +5,14 @@ import { fetchThread } from '@/features/dashboard/api/fetch-thread'
 import Threads from '@/features/dashboard/components/dashboard-threads'
 import { categoryColorHex } from '@/lib/category-map'
 import DashboardControls from '@/features/dashboard/components/dashboard-controls'
+import { Metadata } from 'next'
+import ClearCategories from '@/features/dashboard/components/dashboard-controls/components/clear-categories'
+import SseListener from '@/components/sse'
+
+export const metadata: Metadata = {
+  title: 'Innsikt',
+  description: 'Utforsk hendelser fra politiloggen i Norge',
+}
 type Params = {
   searchParams: {
     thread: string
@@ -23,9 +31,11 @@ export default async function Page({ searchParams }: Params) {
 
   return (
     <Container className="h-[92vh] bg-surface">
+      <SseListener />
       <Container className="flex h-full w-full grow relative">
-        <Container className="absolute z-[1000] left-15 top-3">
+        <Container className="flex items-center gap-2 absolute z-[1000] left-15 top-3">
           <DashboardControls data={dashboardData.data} />
+          <ClearCategories />
         </Container>
 
         <MapClient
