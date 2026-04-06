@@ -1,6 +1,7 @@
 import Chart from '@/components/chart'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import PageHeader from '@/components/page-header'
+import SseListener from '@/components/sse'
 import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchDistrictsAnalytics } from '@/features/districts/api/fetch-districts-analytics'
@@ -29,6 +30,7 @@ export default async function Page({ searchParams }: Params) {
   if (!analytics.success) throw new Error('Kan ikke laste data')
   return (
     <Section className="flex flex-col">
+      <SseListener />
       <Container>
         <PageHeader
           title="Politidistrikter"
