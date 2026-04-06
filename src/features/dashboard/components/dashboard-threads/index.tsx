@@ -10,7 +10,7 @@ type Props = {
   data: Thread[] | null
 }
 
-export default function Threads({ data }: Props) {
+export default function DashboardThreads({ data }: Props) {
   const { category, update } = useMapParams()
   const firstThread = data && data.length > 0
 

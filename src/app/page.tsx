@@ -2,8 +2,9 @@ import MapClient from '@/components/map'
 import Container from '@/components/wrappers/container'
 import { fetchDashboardData } from '@/features/dashboard/api/fetch-dashboard-data'
 import { fetchThread } from '@/features/dashboard/api/fetch-thread'
-import Threads from '@/features/dashboard/components/threads'
+import Threads from '@/features/dashboard/components/dashboard-threads'
 import { categoryColorHex } from '@/lib/category-map'
+import DashboardControls from '@/features/dashboard/components/dashboard-controls'
 type Params = {
   searchParams: {
     thread: string
@@ -23,12 +24,9 @@ export default async function Page({ searchParams }: Params) {
   return (
     <Container className="h-[92vh] bg-surface">
       <Container className="flex h-full w-full grow relative">
-        {/*    <Container className="absolute z-[1000] top-3 left-40 ">
-          <DashboardKPI data={dashboardData.data.kpi} />
-        </Container> */}
-        {/*   <Container className="absolute z-[1000] bottom-3 left-40">
-          <Categories data={dashboardData.data.totalCategories} />
-        </Container> */}
+        <Container className="absolute z-[1000] left-15 top-3">
+          <DashboardControls data={dashboardData.data} />
+        </Container>
 
         <MapClient
           markers={filteredEvents.map((e) => ({
