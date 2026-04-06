@@ -7,6 +7,7 @@ import { categoryColorHex } from '@/lib/category-map'
 import DashboardControls from '@/features/dashboard/components/dashboard-controls'
 import { Metadata } from 'next'
 import ClearCategories from '@/features/dashboard/components/dashboard-controls/components/clear-categories'
+import SseListener from '@/components/sse'
 
 export const metadata: Metadata = {
   title: 'Innsikt',
@@ -30,6 +31,7 @@ export default async function Page({ searchParams }: Params) {
 
   return (
     <Container className="h-[92vh] bg-surface">
+      <SseListener />
       <Container className="flex h-full w-full grow relative">
         <Container className="flex items-center gap-2 absolute z-[1000] left-15 top-3">
           <DashboardControls data={dashboardData.data} />
