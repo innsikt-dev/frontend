@@ -7,8 +7,8 @@ import {
 } from '@/components/ui/popover'
 import { Button } from '@/components/ui/button'
 import { LayoutGrid } from 'lucide-react'
-import DashboardKPI from '../dashboard-kpi'
 import DashboardCategories from './components/categories'
+import DashboardKPI from './components/kpi'
 type Props = {
   data: DashboardData
 }
