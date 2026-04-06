@@ -1,22 +1,20 @@
 'use client'
-import ReactECharts from 'echarts-for-react'
-import { useRef } from 'react'
 
-type Props = {
-  option: object
-  className?: string
-  height?: string
+import { useRef } from 'react'
+import ReactECharts from 'echarts-for-react'
+import { EChartsCoreOption } from 'echarts'
+
+interface ChartProps {
+  option: EChartsCoreOption
   downloadable?: boolean
   downloadName?: string
 }
 
-export default function Chart({
+export function Chart({
   option,
-  className,
-  height = '450px',
   downloadable,
   downloadName = 'innsikt',
-}: Props) {
+}: ChartProps) {
   const ref = useRef<ReactECharts>(null)
 
   function handleDownload() {
@@ -26,6 +24,7 @@ export default function Chart({
       backgroundColor: '#fff',
     })
     if (!url) return
+
     const a = document.createElement('a')
     a.href = url
     a.download = `${downloadName}.png`
@@ -37,19 +36,12 @@ export default function Chart({
       {downloadable && (
         <button
           onClick={handleDownload}
-          className="absolute top-2 right-2 z-10 text-xs text-gray-400 hover:text-gray-600"
+          className="absolute top-0 right-0 z-10 text-xs text-gray-400 hover:text-gray-600"
         >
           Last ned
         </button>
       )}
-      <ReactECharts
-        ref={ref}
-        option={option}
-        style={{ height, width: '100%' }}
-        className={className}
-        notMerge={true}
-        lazyUpdate={true}
-      />
+      <ReactECharts ref={ref} option={option} />
     </div>
   )
 }

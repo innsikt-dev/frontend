@@ -6,11 +6,11 @@ import { fetchComparisonKPI } from '@/features/explore/api/fetch-comparison-kpi'
 import { fetchMunicipalitiesNames } from '@/features/explore/api/fetch-municipalities-names'
 import ChartWrapper from '@/components/chart/chart-wrapper'
 import Chart from '@/components/chart'
-import { buildComparisonIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
-import { buildComparisonCategoryDistribution } from '@/features/explore/chart/options/build-category-distribution'
+import { buildCategoryDistribution } from '@/features/explore/chart/options/build-category-distribution'
 import { appConfig } from '@/lib/app-config/config'
 import PageHeader from '@/components/page-header'
 import ExploreKpi from '@/features/explore/components/kpi'
+import { buildIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
 
 type Params = {
   searchParams: {
@@ -39,6 +39,7 @@ export default async function Page({ searchParams }: Params) {
   if (!availableMunicipalities.success)
     throw new Error('Kunne ikke laste siden')
   if (!comparisonKpi.success) throw new Error('Kunne ikke laste siden')
+
   return (
     <Section className="flex flex-col">
       <Container className="flex flex-col gap-4  items-center gap-2 w-full">
@@ -68,7 +69,7 @@ export default async function Page({ searchParams }: Params) {
         <>
           <ChartWrapper title="Hendelser over tid">
             <Chart
-              option={buildComparisonIncidentsOverTime(
+              option={buildIncidentsOverTime(
                 analytics.data.incidentsOverTime,
                 m1,
                 m2
@@ -77,7 +78,7 @@ export default async function Page({ searchParams }: Params) {
           </ChartWrapper>
           <ChartWrapper title="Kategorifordeling">
             <Chart
-              option={buildComparisonCategoryDistribution(
+              option={buildCategoryDistribution(
                 analytics.data.keywordIncidents,
                 m1,
                 m2

@@ -8,7 +8,7 @@ import {
 import { MunicipalityAnalytics } from '../../api/types'
 import { EChartsCoreOption } from 'echarts'
 
-export function buildComparisonCategoryDistribution(
+export function buildCategoryDistribution(
   data: MunicipalityAnalytics['categoryDistribution'],
   municipalityOne: string,
   municipalityTwo: string,

@@ -1,4 +1,4 @@
-import { chartAxisBase, chartTooltip } from '@/lib/chart-config'
+import { chartAxisBase, chartLine, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 import { DistrictTrend } from '../../api/types'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
@@ -64,9 +64,10 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
     },
     series: series.map((s) => ({
       ...s,
-      smooth: true,
+      smooth: chartLine.smooth,
+      showsSymbol: chartLine.showSymbol,
       symbol: 'none',
-      lineStyle: { width: 2 },
+      lineStyle: chartLine.lineStyle,
       type: 'line' as const,
     })),
   } satisfies EChartsCoreOption

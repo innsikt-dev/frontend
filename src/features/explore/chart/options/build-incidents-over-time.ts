@@ -1,9 +1,15 @@
 import { EChartsCoreOption } from 'echarts'
 import { MunicipalityAnalytics } from '../../api/types'
 import { norwegianDateFormatter } from '@/lib/norwegian-date-formatter'
-import { chartAxisBase, chartGrid, chartTooltip } from '@/lib/chart-config'
+import {
+  chartAxisBase,
+  chartColors,
+  chartGrid,
+  chartLine,
+  chartTooltip,
+} from '@/lib/chart-config'
 
-export function buildComparisonIncidentsOverTime(
+export function buildIncidentsOverTime(
   data: MunicipalityAnalytics['incidentsOverTime'],
   municipalityOne: string,
   municipalityTwo: string
@@ -43,19 +49,16 @@ export function buildComparisonIncidentsOverTime(
       {
         name: municipalityOne,
         type: 'line',
-        smooth: true,
-        symbol: 'none',
-        lineStyle: { width: 1.5 },
-        itemStyle: { color: '#3b82f6' },
+        itemStyle: { color: chartColors.comparison[0] },
+        ...chartLine,
         data: dates.map((date) => counter[date][municipalityOne] ?? 0),
       },
       {
         name: municipalityTwo,
         type: 'line',
-        smooth: true,
         symbol: 'none',
-        lineStyle: { width: 1.5 },
-        itemStyle: { color: '#f97316' },
+        itemStyle: { color: chartColors.comparison[1] },
+        ...chartLine,
         data: dates.map((date) => counter[date][municipalityTwo] ?? 0),
       },
     ],

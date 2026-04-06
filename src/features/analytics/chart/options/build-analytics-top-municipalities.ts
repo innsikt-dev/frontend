@@ -2,7 +2,7 @@ import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 import { AnalyticsTopMunicipalities } from '../../api/types'
 
-export function buildTopMunicipalities(
+export function buildAnalyticsTopMunicipalities(
   data: AnalyticsTopMunicipalities[]
 ): EChartsCoreOption {
   return {
@@ -27,7 +27,6 @@ export function buildTopMunicipalities(
       {
         type: 'bar',
         barMaxWidth: 40,
-        barWidth: chartBar.barWidth,
 
         data: data
           .map((d, i) => ({
@@ -38,6 +37,7 @@ export function buildTopMunicipalities(
             },
           }))
           .reverse(),
+        ...chartBar,
       },
     ],
   }

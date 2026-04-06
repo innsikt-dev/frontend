@@ -5,9 +5,9 @@ import Container from '@/components/wrappers/container'
 import Section from '@/components/wrappers/section'
 import { fetchAnalytics } from '@/features/analytics/api/fetch-analytics'
 import HeatmapChart from '@/features/analytics/chart/heatmap'
-import { buildCategoryDistribution } from '@/features/analytics/chart/options/build-category-distribution'
-import { buildTopMunicipalities } from '@/features/analytics/chart/options/build-top-municipalities'
-import { buildTrends } from '@/features/analytics/chart/options/build-trends'
+import { buildAnalyticsCategoryDistribution } from '@/features/analytics/chart/options/build-analytics-category-distribution'
+import { buildAnalyticsTopMunicipalities } from '@/features/analytics/chart/options/build-analytics-top-municipalities'
+import { buildAnalyticsTrends } from '@/features/analytics/chart/options/build-analytics-trends'
 type Params = {
   searchParams: {
     period: string
@@ -15,8 +15,8 @@ type Params = {
 }
 export default async function Page({ searchParams }: Params) {
   const { period } = await searchParams
-  const data = await fetchAnalytics(period ?? '1d')
-  if (!data.success) return null
+  const analytics = await fetchAnalytics(period ?? '1d')
+  if (!analytics.success) return null
   return (
     <Section className="flex flex-col">
       <PageHeader
@@ -24,19 +24,25 @@ export default async function Page({ searchParams }: Params) {
         subtitle="Utforsk mønstre og trender i politiloggen over tid"
       />
       <ChartWrapper title="Aktivitet etter dag og time">
-        <HeatmapChart data={data.data.heatMap} />
+        <HeatmapChart data={analytics.data.heatMap} />
       </ChartWrapper>
       <ChartWrapper title="Hendelser over tid">
-        <Chart option={buildTrends(data.data.trends)} />
+        <Chart option={buildAnalyticsTrends(analytics.data.trends)} />
       </ChartWrapper>
       <Container className="grid grid-cols-2 gap-4">
         <ChartWrapper title="Topp 10 kommuner">
-          <Chart option={buildTopMunicipalities(data.data.topMunicipalities)} />
+          <Chart
+            option={buildAnalyticsTopMunicipalities(
+              analytics.data.topMunicipalities
+            )}
+          />
         </ChartWrapper>
 
         <ChartWrapper title="Fordeling av kategorier">
           <Chart
-            option={buildCategoryDistribution(data.data.categoryDistribution)}
+            option={buildAnalyticsCategoryDistribution(
+              analytics.data.categoryDistribution
+            )}
           />
         </ChartWrapper>
       </Container>

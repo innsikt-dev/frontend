@@ -3,9 +3,10 @@ import { categoryColorHex } from '@/lib/category-map'
 import { chartAxisBase, chartBar, chartTooltip } from '@/lib/chart-config'
 import { EChartsCoreOption } from 'echarts'
 
-export function buildCategoryDistribution(
+export function buildAnalyticsCategoryDistribution(
   data: AnalyticsCategoryDistribution[]
 ) {
+  console.log(data)
   return {
     tooltip: {
       ...chartTooltip,
@@ -15,8 +16,13 @@ export function buildCategoryDistribution(
     xAxis: {
       type: 'category',
       data: data.map((d) => d.category),
-
-      axisLabel: { color: '#6b7280' },
+      axisLabel: {
+        color: '#6b7280',
+        interval: 0,
+        rotate: 30,
+        overflow: 'truncate',
+        width: 80,
+      },
       ...chartAxisBase,
     },
     yAxis: {
@@ -30,7 +36,7 @@ export function buildCategoryDistribution(
       {
         type: 'bar',
         barMaxWidth: 48,
-        barWidth: chartBar.barWidth,
+        ...chartBar,
         data: data.map((d) => ({
           value: d.amount,
           itemStyle: {

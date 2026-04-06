@@ -1,12 +1,15 @@
 import { categoryColorHex } from '../category-map'
 
 export const chartTooltip = {
-  backgroundColor: '#18162a',
-  borderColor: '#2d2a45',
-  textStyle: { color: '#e2e0f0' },
+  backgroundColor: '#ffffff',
+  borderColor: '#f3f4f6',
+  borderWidth: 1,
+  shadowBlur: 8,
+  shadowColor: 'rgba(0,0,0,0.06)',
+  textStyle: { color: '#374151', fontSize: 12 },
   axisPointer: {
     type: 'line',
-    lineStyle: { color: '#2d2a45', type: 'dashed' },
+    lineStyle: { color: '#e5e7eb', type: 'dashed' },
   },
 }
 
@@ -31,12 +34,21 @@ export const chartGrid = {
 
 export const chartColors = {
   heatmap: ['#eff6ff', '#93c5fd', '#1d4ed8'],
-  comparison: ['#3b82f6', '#f97316'],
+  comparison: ['#3b82f6', '#22c55e'],
   category: categoryColorHex,
   single: '#7c3aed',
 }
 
 export const chartBar = {
   borderRadius: [4, 4, 0, 0],
-  barWidth: 25,
+  barWidth: 20,
+}
+
+export const chartLine = {
+  smooth: true,
+  showSymbol: false,
+  lineStyle: { width: 2 },
+  areaStyle: {
+    opacity: 0.05,
+  },
 }

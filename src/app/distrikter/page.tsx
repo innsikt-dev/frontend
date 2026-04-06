@@ -32,7 +32,7 @@ export default async function Page({ searchParams }: Params) {
 
       <DistrictKpi data={kpi.data} />
 
-      <ChartWrapper title="Ukentlige trender">
+      <ChartWrapper title="Trender">
         <Chart option={buildDistrictTrends(analytics.data.trends)} />
       </ChartWrapper>
 
