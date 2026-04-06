@@ -11,6 +11,12 @@ import { appConfig } from '@/lib/app-config/config'
 import PageHeader from '@/components/page-header'
 import ExploreKpi from '@/features/explore/components/kpi'
 import { buildIncidentsOverTime } from '@/features/explore/chart/options/build-incidents-over-time'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Utforsk | Innsikt',
+  description: 'Sammenlign kommuner mot hverandre',
+}
 
 type Params = {
   searchParams: {

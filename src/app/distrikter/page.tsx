@@ -8,6 +8,12 @@ import { fetchDistrictsKpi } from '@/features/districts/api/fetch-districts-kpi'
 import { buildDistrictCategoryDistribution } from '@/features/districts/chart/options/build-district-category-distribution'
 import { buildDistrictTrends } from '@/features/districts/chart/options/build-district-trends'
 import DistrictKpi from '@/features/districts/components/district-kpi'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Distrikter | Innsikt',
+  description: 'Oversikt over alle politidistrikter',
+}
 
 type Params = {
   searchParams: {
