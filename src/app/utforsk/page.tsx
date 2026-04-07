@@ -38,7 +38,7 @@ export default async function Page({ searchParams }: Params) {
     period: period ?? appConfig.defaults.period,
     perCapita,
   })
-
+  if (!analytics.success) throw new Error('Kunne ikke laste siden')
   const comparisonKpi = await fetchComparisonKPI({
     id1: m1,
     id2: m2,
@@ -75,28 +75,24 @@ export default async function Page({ searchParams }: Params) {
         <ExploreKpi data={comparisonKpi.data.municipalityTwo} />
       </Container>
 
-      {analytics.success && (
-        <>
-          <ChartWrapper title="Hendelser over tid">
-            <Chart
-              option={buildIncidentsOverTime(
-                analytics.data.incidentsOverTime,
-                m1,
-                m2
-              )}
-            />
-          </ChartWrapper>
-          <ChartWrapper title="Kategorifordeling">
-            <Chart
-              option={buildCategoryDistribution(
-                analytics.data.keywordIncidents,
-                m1,
-                m2
-              )}
-            />
-          </ChartWrapper>
-        </>
-      )}
+      <ChartWrapper title="Hendelser over tid">
+        <Chart
+          option={buildIncidentsOverTime(
+            analytics.data.incidentsOverTime,
+            m1,
+            m2
+          )}
+        />
+      </ChartWrapper>
+      <ChartWrapper title="Kategorifordeling">
+        <Chart
+          option={buildCategoryDistribution(
+            analytics.data.keywordIncidents,
+            m1,
+            m2
+          )}
+        />
+      </ChartWrapper>
     </Section>
   )
 }
