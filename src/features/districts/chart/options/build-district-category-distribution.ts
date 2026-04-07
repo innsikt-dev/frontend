@@ -33,7 +33,6 @@ export function buildDistrictCategoryDistribution(
     series: [
       {
         type: 'bar',
-        barMaxWidth: chartBar.barWidth,
         itemStyle: {
           borderRadius: [
             0,

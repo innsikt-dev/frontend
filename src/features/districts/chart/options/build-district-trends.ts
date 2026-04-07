@@ -11,7 +11,6 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
     const date = norwegianDateFormatter(d.date)
     const district = d.district_name
     if (!counter[date]) counter[date] = {}
-    if (!counter[date][district]) counter[date][district] = 0
     counter[date][district] = d.amount
   })
 
@@ -28,14 +27,18 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
     }
   )
 
-  const series = districts.map((district) => {
-    return {
-      name: replaceDistrict(district),
-      type: 'line',
-      itemStyle: { color: districtColors[district.toLowerCase()]?.colorHex },
-      data: dates.map((date) => counter[date][district] ?? 0),
-    }
-  })
+  const series = districts.map((district) => ({
+    name: replaceDistrict(district),
+    type: 'line' as const,
+    smooth: chartLine.smooth,
+    showSymbol: chartLine.showSymbol,
+    symbol: 'none',
+    lineStyle: chartLine.lineStyle,
+    itemStyle: { color: districtColors[district.toLowerCase()]?.colorHex },
+    areaStyle: { opacity: districts.length === 1 ? 0.05 : 0 },
+    data: dates.map((date) => counter[date][district] ?? 0),
+  }))
+
   return {
     tooltip: {
       show: true,
@@ -62,17 +65,6 @@ export function buildDistrictTrends(data: DistrictTrend[]): EChartsCoreOption {
       axisLabel: { color: '#6b7280' },
       ...chartAxisBase,
     },
-    series: series.map((s) => ({
-      ...s,
-      showsSymbol: chartLine.showSymbol,
-      symbol: 'none',
-      type: 'line' as const,
-      smooth: chartLine.smooth,
-      showSymbol: chartLine.showSymbol,
-      lineStyle: chartLine.lineStyle,
-      areaStyle: {
-        opacity: series.length === 1 ? 0.05 : 0,
-      },
-    })),
+    series,
   } satisfies EChartsCoreOption
 }
