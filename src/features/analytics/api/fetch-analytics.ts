@@ -3,10 +3,11 @@ import { API_URL } from '@/lib/env'
 import { Analytics } from './types'
 
 export async function fetchAnalytics(
-  period: string
+  period: string,
+  revalidate = 3600
 ): Promise<Result<Analytics>> {
   const res = await fetch(`${API_URL}/analytics?period=${period}`, {
-    cache: 'no-cache',
+    next: { revalidate },
   })
   if (!res.ok) return { success: false, data: null }
   const data = await res.json()

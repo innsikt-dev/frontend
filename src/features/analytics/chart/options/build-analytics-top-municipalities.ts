@@ -26,7 +26,6 @@ export function buildAnalyticsTopMunicipalities(
     series: [
       {
         type: 'bar',
-        barMaxWidth: 40,
 
         data: data
           .map((d, i) => ({

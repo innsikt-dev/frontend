@@ -23,7 +23,7 @@ type Params = {
 export default async function Page({ searchParams }: Params) {
   const { period } = await searchParams
   const analytics = await fetchAnalytics(period ?? '1d')
-  if (!analytics.success) return null
+  if (!analytics.success) throw new Error('Kunne ikke laste data')
   return (
     <Section className="flex flex-col">
       <PageHeader

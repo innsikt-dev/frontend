@@ -6,7 +6,6 @@ import { EChartsCoreOption } from 'echarts'
 export function buildAnalyticsCategoryDistribution(
   data: AnalyticsCategoryDistribution[]
 ) {
-  console.log(data)
   return {
     tooltip: {
       ...chartTooltip,
@@ -35,7 +34,6 @@ export function buildAnalyticsCategoryDistribution(
     series: [
       {
         type: 'bar',
-        barMaxWidth: 48,
         ...chartBar,
         data: data.map((d) => ({
           value: d.amount,

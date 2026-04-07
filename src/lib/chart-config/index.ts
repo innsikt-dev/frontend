@@ -42,6 +42,7 @@ export const chartColors = {
 export const chartBar = {
   borderRadius: [4, 4, 0, 0],
   barWidth: 20,
+  barMaxWidth: 40,
 }
 
 export const chartLine = {

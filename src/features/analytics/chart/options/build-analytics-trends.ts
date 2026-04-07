@@ -10,36 +10,36 @@ export function buildAnalyticsTrends(data: AnalyticsTrends[]) {
   data.forEach((d) => {
     const date = norwegianDateFormatter(d.date)
     if (!counter[date]) counter[date] = {}
-    if (!counter[date][d.category]) counter[date][d.category] = 0
-    counter[date][d.category] += d.amount
+    counter[date][d.category] = (counter[date][d.category] ?? 0) + d.amount
   })
 
   const dates = Object.keys(counter)
   const categories = [...new Set(data.map((d) => d.category))]
+
   const totals = data.reduce<Record<string, number>>((acc, d) => {
     acc[d.category] = (acc[d.category] ?? 0) + d.amount
     return acc
   }, {})
 
   const topCategories = new Set(
-    Object.entries(totals)
-      .sort((a, b) => b[1] - a[1])
+    [...categories]
+      .sort((a, b) => (totals[b] ?? 0) - (totals[a] ?? 0))
       .slice(0, 6)
-      .map(([cat]) => cat)
   )
+
   const series = categories.map((cat) => ({
     name: cat,
-    type: 'line',
+    type: 'line' as const,
+    smooth: chartLine.smooth,
+    showSymbol: chartLine.showSymbol,
+    symbol: 'none',
+    lineStyle: chartLine.lineStyle,
     itemStyle: { color: categoryColorHex[cat] },
     data: dates.map((date) => counter[date][cat] ?? 0),
   }))
 
   return {
-    tooltip: {
-      ...chartTooltip,
-      show: true,
-      trigger: 'axis',
-    },
+    tooltip: { ...chartTooltip, show: true, trigger: 'axis' },
     legend: {
       data: categories,
       bottom: 0,
@@ -47,7 +47,6 @@ export function buildAnalyticsTrends(data: AnalyticsTrends[]) {
       icon: 'circle',
       itemWidth: 8,
       itemHeight: 8,
-
       selected: Object.fromEntries(
         categories.map((cat) => [cat, topCategories.has(cat)])
       ),
@@ -65,13 +64,6 @@ export function buildAnalyticsTrends(data: AnalyticsTrends[]) {
       axisLabel: { color: '#6b7280' },
       ...chartAxisBase,
     },
-    series: series.map((s) => ({
-      ...s,
-      symbol: 'none',
-      type: 'line' as const,
-      smooth: chartLine.smooth,
-      showSymbol: chartLine.showSymbol,
-      lineStyle: chartLine.lineStyle,
-    })),
+    series,
   } satisfies EChartsCoreOption
 }
