@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { navItems } from './nav-items'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/cn'
+import { cn } from '@/lib/utils'
 
 export default function Nav() {
   const pathname = usePathname()

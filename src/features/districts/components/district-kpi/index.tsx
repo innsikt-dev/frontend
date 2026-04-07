@@ -1,10 +1,10 @@
 'use client'
-import { cn } from '@/lib/cn'
 import { DistrictKPI } from '../../api/types'
 import { districtColors } from '@/lib/district-map'
 import { usePageParams } from '@/hooks/use-page-params'
 import Container from '@/components/wrappers/container'
 import { replaceDistrict } from '@/features/districts/replace-district'
+import { cn } from '@/lib/utils'
 
 type Props = {
   data: DistrictKPI[]
