@@ -13,7 +13,7 @@ type Props = {
 export default function DashboardThreads({ data }: Props) {
   const { category, update } = useMapParams()
   const firstThread = data && data.length > 0
-
+  if (!data?.length) return null
   const sliced = data?.slice(1)
   return (
     <Container className="h-full w-[400px] flex flex-col border-l border-line overflow-hidden">

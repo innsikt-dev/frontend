@@ -24,11 +24,9 @@ export default async function Page({ searchParams }: Params) {
   const dashboardData = await fetchDashboardData()
   if (!dashboardData.success) throw Error('Kunne ikke laste data')
   const threads = await fetchThread(thread)
-  const threadData = threads.success ? threads.data : null
   const filteredEvents = category
     ? dashboardData.data.events.filter((e) => e.type === category)
     : dashboardData.data.events
-
   return (
     <Container className="h-[92vh] bg-surface">
       <SseListener />
@@ -51,13 +49,11 @@ export default async function Page({ searchParams }: Params) {
           }))}
         />
 
-        {threadData && (
-          <Container
-            className={`absolute h-full z-[1000] right-0 bg-surface transition-opacity duration-200 ${thread ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-          >
-            <Threads data={threads.data} />
-          </Container>
-        )}
+        <Container
+          className={`absolute h-full z-[1000] right-0 bg-surface transition-opacity duration-200 ${thread ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        >
+          <Threads data={threads.data} />
+        </Container>
       </Container>
     </Container>
   )

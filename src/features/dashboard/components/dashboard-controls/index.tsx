@@ -13,6 +13,7 @@ type Props = {
   data: DashboardData
 }
 export default function DashboardControls({ data }: Props) {
+  if (!data.kpi || data.totalCategories.length === 0) return null
   return (
     <Popover>
       <PopoverTrigger asChild>
